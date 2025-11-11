@@ -1,0 +1,169 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+}
+
+html, body {
+    scroll-behavior: smooth;
+    font-family: 'Poppins', sans-serif;
+    background-color: #fff;
+    color: #111;
+}
+
+:root {
+    --white: #faf4f4;
+    --black: #000000;
+    --blue: blue;
+}
+
+/* HEADER SECTION STARTS */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3.5rem;
+}
+
+.voltix_logo{
+    font-size: 2rem;
+    font-weight: 600;
+}
+.voltix_logo span, h2 span, .fa-tags, header .fa-shopping-cart{
+    color: var(--blue);
+}
+.nav_li {
+    display: flex;
+    gap: 2rem;
+}
+.nav_link {
+    color: var(--black);
+}
+/* HERO SECTION STARTS */
+.banner_section {
+    display: flex;
+    justify-content: center;
+    height: fit-content;
+    margin-top: 1rem;
+}
+.banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border-radius: 1rem;
+    padding: 0rem 4rem;
+    width: 70%;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+.banner-info h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+}
+.banner-info p {
+    color: #555;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+.hero-link {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--blue) 0%, #0056b3 100%);
+    color: var(--white);
+    padding: 0.8rem 1.7rem;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+.hero-link:hover {
+    background-color: var(--blue);
+    transform: translateY(-2px);
+}
+.banner-image {
+    z-index: 1;
+    width: 27%;
+}
+.banner-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.2));
+}
+/* FEATURED SECTION STARTS */
+.featured_section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+.featured_products{
+    display: flex;
+    gap: 1rem;
+    width: 80%;
+}
+.featured{
+    flex: 1;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+.featured_info{
+    padding-top: 1rem;
+}
+.featured-title h2{
+    font-size: 0.97rem;
+    font-weight: 600;
+    margin: 0;
+    color: #111;
+}
+.featured_info div:not(.featured-buy){
+    margin-bottom: 4.5px;
+}
+.fa-star{
+    color: rgb(233, 233, 6);
+}
+.featured_image{
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    height: 120px;
+    margin-block: 1rem;
+}
+.featured_image img {
+    width: 100px;
+    display: block;
+    height: auto;
+    max-width: 100%;
+}
+.featured-buy{
+    display: flex;
+    gap: 0.4rem;
+    margin-top: 0.5rem;
+}
+.featured-buy button{
+    flex: 1;
+    background: linear-gradient(135deg, var(--blue) 0%, #0056b3 100%);
+    color: var(--white);
+    padding: 0.7rem 0.5rem;
+    border: none;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+}
+
+.featured-buy button:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(68, 136, 238, 0.3);
+}
+
+.featured-buy button:active {
+    transform: translateY(0);
+}
