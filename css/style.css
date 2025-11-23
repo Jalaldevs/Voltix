@@ -26,9 +26,8 @@ header {
     align-items: center;
     padding: 1.5rem 3.5rem;
 }
-
 .voltix_logo{
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 600;
 }
 .voltix_logo span, h2 span, .fa-tags, header .fa-shopping-cart{
@@ -40,6 +39,33 @@ header {
 }
 .nav_link {
     color: var(--black);
+    font-size: 1.1rem;
+    position: relative;
+}
+.media-queries-header-icons a {
+    position: relative;
+}
+.nav_link .fa-shopping-cart::after, .media-queries-cart-icon::after{
+    content: '0';
+    display: flex;
+    font-size: 0.92rem;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+    color: var(--white);
+    position: absolute;
+    background-color: var(--blue);
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    top: -17px;
+    left: 15px;
+}
+.nav_link .fa-shopping-cart::after{
+    font-size: 0.75rem;
+}
+.media-queries-header-icons{
+    display: none;
 }
 /* HERO SECTION STARTS */
 .banner_section {
@@ -55,7 +81,7 @@ header {
     background: white;
     border-radius: 1rem;
     padding: 0rem 4rem;
-    width: 70%;
+    width: 75%;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 .banner-info h2 {
@@ -72,7 +98,7 @@ header {
     display: inline-block;
     background: linear-gradient(135deg, var(--blue) 0%, #0056b3 100%);
     color: var(--white);
-    padding: 0.8rem 1.7rem;
+    padding: 0.8rem 2.2rem;
     font-weight: 600;
     transition: 0.3s ease;
 }
@@ -82,10 +108,12 @@ header {
 }
 .banner-image {
     z-index: 1;
-    width: 27%;
+    width: 25%;
+    margin-right: 2rem;
 }
 .banner-image img {
-    width: 100%;
+    min-width: 220px;
+    max-width: 100%;
     height: auto;
     display: block;
     filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.2));
@@ -95,12 +123,13 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 1rem;
+    margin-top: 3rem;
 }
 .featured_products{
     display: flex;
+    justify-content: center;
     gap: 1rem;
-    width: 80%;
+    width: 95%;
 }
 .featured{
     flex: 1;
@@ -123,6 +152,14 @@ header {
 .fa-star{
     color: rgb(233, 233, 6);
 }
+.rating-box{
+    display: flex;
+    align-items: center;
+}
+.quantity-selector{
+    margin-left: auto;
+    margin-right: 0.5rem;
+}
 .featured_image{
     display: flex;
     justify-content: center;
@@ -142,6 +179,7 @@ header {
     margin-top: 0.5rem;
 }
 .featured-buy button{
+    min-width: fit-content;
     flex: 1;
     background: linear-gradient(135deg, var(--blue) 0%, #0056b3 100%);
     color: var(--white);
@@ -166,4 +204,43 @@ header {
 
 .featured-buy button:active {
     transform: translateY(0);
+}
+/* MEDIA QUERIES */
+
+@media (width <= 1090px) {
+    .nav_li{
+        display: none;
+    }
+    .banner{
+        width: 95%;
+    }
+    .banner h2{
+        font-size: 1.7rem;
+    }
+    .banner p{
+        font-size: 0.94rem;
+    }
+    .banner-image img{
+        min-width: 200px;
+    }
+    .media-queries-header-icons{
+        display: flex;
+        gap: 10px;
+        margin-left: auto;
+        font-size: 1.45rem;
+        color: var(--blue);
+    }
+    .featured_products{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+    }
+}
+@media (width <= 640px){
+    .banner{
+        padding: 0 5rem 0 2.5rem;
+    }
+    .featured_products{
+        width: 95%;
+    }
 }
