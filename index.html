@@ -10,7 +10,7 @@
     <script defer src="./js/script.js"></script>
 </head>
 <body>
-    <div class="wrapper">
+    <div id="hero" class="wrapper">
         <div class="mobile-search js-mobile-search">
             <span class="mobile-search-close js-close-mobile-search">
                 <i class="fa-solid fa-x"></i>
@@ -29,20 +29,22 @@
                     <i class="fas fa-search"></i>
                 </span>
                 <a href="#"><span class="media-queries-cart-icon"><i class="fas fa-shopping-cart"></i></span></a>
-                <span class="media-queries-user-icon"><i class="fas fa-user"></i></span>
+                <a target="_blank" style="color: blue !important;" href="/html/signup_voltix.html" class="media-queries-user-icon"><i class="fas fa-user"></i></a>
             </div>
             <nav>
                 <ul class="nav_ul">
                     <li class="nav_li">
                         <span class="nav_link">
-                            <span>
+                            <span id="search-wrapper">
                                 <input id="search-bar" type="text" placeholder="Search Your Item Here..." required>
-                                <i class="fas fa-search"></i>
-                                <span class="search-text"> Search</span>
+                                <span id="search-text-wrapper">
+                                    <i id="search-icon" class="fas fa-search"></i>
+                                    <span class="search-text"> Search</span>
+                                </span>
                             </span>
                         </span>
-                        <a href="#" class="nav_link"><i class="fas fa-tags"></i> Special Offers</a>
-                        <a href="#" class="nav_link"><i class="fas fa-map-marker-alt"></i> Locations</a>
+                        <a href="#offers" class="nav_link"><i class="fas fa-tags"></i> Special Offers</a>
+                        <a href="#locations" class="nav_link"><i class="fas fa-map-marker-alt"></i> Locations</a>
                         <a href="#" class="nav_link"><i class="fas fa-shopping-cart"></i> Cart</a>
                         <a href="/html/signup_voltix.html" class="nav_link"><i class="fas fa-user"></i> Account</a>
                     </li>
@@ -63,107 +65,137 @@
                 </div>
             </section>
             <section class="featured_section">
-                <div class="featured_products">
-
-                    <!-- PRODUCTO 1 -->
-                    <article class="featured">
-                        <div class="featured_image">
-                            <img src="./images/backpack (2).jpg" alt="backpack image">
+                <h2 class="featured-section-title">Featured Products</h2>
+                <div id="js-featured-products" class="featured_products">
+                </div>
+            </section>
+            <section id="offers" class="offers_section">
+                <h2 class="offers-section-title">Special Offers</h2>
+                <div class="offers_products">
+                    <article class="offer">
+                        <div class="offer_image">
+                            <img src="./images/6-piece-non-stick-baking-set (1).webp" alt="6 piece baking set">
                         </div>
-                        <div class="featured_info">
-                            <div class="featured-title">
-                                <h2>Travel Backpack</h2>
-                            </div>
-                            <div class="featured-price">
-                                <p>$79.99</p>
-                            </div>
-                            <div class="featured-stars">
-                                <p>
-                                    <i class="fas fa-star"></i> 4.6/5 — 1,024 reviews
-                                </p>
-                            </div>
-                            <div class="featured-buy">
+                        <div class="offer_info">
+                            <div class="offer-title"><h2>6-Piece Baking Set</h2></div>
+                            <div class="offer-price"><p>$34.99</p></div>
+                            <div class="offer-stars"><p><i class="fas fa-star"></i> 4.7/5 — 824 reviews</p></div>
+                            <div class="offer-buy">
                                 <button>Buy Now <span><i class="fas fa-credit-card"></i></span></button>
                                 <button>Add To Cart <span><i class="fas fa-shopping-cart"></i></span></button>
                             </div>
                         </div>
                     </article>
-
-                    <!-- PRODUCTO 2 -->
-                    <article class="featured">
-                        <div class="featured_image">
-                            <img src="./images/men-cozy-fleece-zip-up-hoodie-red.jpg" alt="men hoodie image">
+                    <article class="offer">
+                        <div class="offer_image">
+                            <img src="./images/adults-plain-cotton-tshirt-2-pack-teal (2).jpg" alt="cotton tshirt image">
                         </div>
-                        <div class="featured_info">
-                            <div class="featured-title">
-                                <h2>Cozy Fleece Hoodie</h2>
-                            </div>
-                            <div class="featured-price">
-                                <p>$49.99</p>
-                            </div>
-                            <div class="featured-stars">
-                                <p>
-                                    <i class="fas fa-star"></i> 4.3/5 — 387 reviews
-                                </p>
-                            </div>
-                            <div class="featured-buy">
+                        <div class="offer_info">
+                            <div class="offer-title"><h2>Plain Cotton T-Shirt</h2></div>
+                            <div class="offer-price"><p>$19.99</p></div>
+                            <div class="offer-stars"><p><i class="fas fa-star"></i> 4.5/5 — 1,112 reviews</p></div>
+                            <div class="offer-buy">
                                 <button>Buy Now <span><i class="fas fa-credit-card"></i></span></button>
                                 <button>Add To Cart <span><i class="fas fa-shopping-cart"></i></span></button>
                             </div>
                         </div>
                     </article>
-
-                    <!-- PRODUCTO 3 -->
-                    <article class="featured">
-                        <div class="featured_image">
-                            <img src="./images/electric-glass-and-steel-hot-water-kettle.webp" alt="kettle image">
+                    <article class="offer">
+                        <div class="offer_image">
+                            <img src="./images/athletic-cotton-socks-6-pairs (1).jpg" alt="athletic socks">
                         </div>
-                        <div class="featured_info">
-                            <div class="featured-title">
-                                <h2>Smart Electric Kettle</h2>
-                            </div>
-                            <div class="featured-price">
-                                <p>$39.99</p>
-                            </div>
-                            <div class="featured-stars">
-                                <p>
-                                    <i class="fas fa-star"></i> 4.1/5 — 290 reviews
-                                </p>
-                            </div>
-                            <div class="featured-buy">
+                        <div class="offer_info">
+                            <div class="offer-title"><h2>Athletic Socks</h2></div>
+                            <div class="offer-price"><p>$14.99</p></div>
+                            <div class="offer-stars"><p><i class="fas fa-star"></i> 4.4/5 — 2,309 reviews</p></div>
+                            <div class="offer-buy">
                                 <button>Buy Now <span><i class="fas fa-credit-card"></i></span></button>
                                 <button>Add To Cart <span><i class="fas fa-shopping-cart"></i></span></button>
                             </div>
                         </div>
                     </article>
-
-                    <!-- PRODUCTO 4 -->
-                    <article class="featured">
-                        <div class="featured_image">
-                            <img src="./images/plain-hooded-fleece-sweatshirt-yellow (1).jpg" alt="yellow hoodie image">
+                    <article class="offer">
+                        <div class="offer_image">
+                            <img src="./images/coffeemaker-with-glass-carafe-black.jpg" alt="coffeemaker">
                         </div>
-                        <div class="featured_info">
-                            <div class="featured-title">
-                                <h2>Everyday Hoodie</h2>
-                            </div>
-                            <div class="featured-price">
-                                <p>$59.99</p>
-                            </div>
-                            <div class="featured-stars">
-                                <p>
-                                    <i class="fas fa-star"></i> 4.8/5 — 2,504 reviews
-                                </p>
-                            </div>
-                            <div class="featured-buy">
+                        <div class="offer_info">
+                            <div class="offer-title"><h2>Black Coffee Maker</h2></div>
+                            <div class="offer-price"><p>$54.99</p></div>
+                            <div class="offer-stars"><p><i class="fas fa-star"></i> 4.6/5 — 3,114 reviews</p></div>
+                            <div class="offer-buy">
                                 <button>Buy Now <span><i class="fas fa-credit-card"></i></span></button>
                                 <button>Add To Cart <span><i class="fas fa-shopping-cart"></i></span></button>
                             </div>
                         </div>
                     </article>
-
+                    <article class="offer">
+                        <div class="offer_image">
+                            <img src="./images/men-golf-polo-t-shirt-blue.jpg" alt="golf polo shirt">
+                        </div>
+                        <div class="offer_info">
+                            <div class="offer-title"><h2>Men's Golf Polo Shirt</h2></div>
+                            <div class="offer-price"><p>$27.99</p></div>
+                            <div class="offer-stars"><p><i class="fas fa-star"></i> 4.4/5 — 512 reviews</p></div>
+                            <div class="offer-buy">
+                                <button>Buy Now <span><i class="fas fa-credit-card"></i></span></button>
+                                <button>Add To Cart <span><i class="fas fa-shopping-cart"></i></span></button>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="offer">
+                        <div class="offer_image">
+                            <img src="./images/men-navigator-sunglasses-brown.jpg" alt="navigator sunglasses">
+                        </div>
+                        <div class="offer_info">
+                            <div class="offer-title"><h2>Sunglasses</h2></div>
+                            <div class="offer-price"><p>$24.99</p></div>
+                            <div class="offer-stars"><p><i class="fas fa-star"></i> 4.6/5 — 2,132 reviews</p></div>
+                            <div class="offer-buy">
+                                <button>Buy Now <span><i class="fas fa-credit-card"></i></span></button>
+                                <button>Add To Cart <span><i class="fas fa-shopping-cart"></i></span></button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+            <section id="locations" class="locations_section">
+                <div class="iframe_wrapper">
+                    <div class="contact">
+                        <div class="contact-title-wrapper">
+                            <h2><i class="fas fa-phone-alt"></i> Contact Us</h2>
+                            <p class="contact-intro">Have a question or need help? Reach out — we're happy to assist.</p>
+                        </div>
+                        <ul class="contact-list">
+                            <li class="contact-item"><i class="fas fa-map-marker-alt"></i> 123 Voltix, Suite 400, Madrid, ES</li>
+                            <li class="contact-item"><i class="fas fa-phone"></i> <a href="tel:+34123456789">+34 123 456 789</a></li>
+                            <li class="contact-item"><i class="fas fa-envelope"></i> <a href="mailto:support@voltix.example">support@voltix.example</a></li>
+                            <li class="contact-item"><i class="fas fa-clock"></i> Mon–Fri: 9:00 — 18:00</li>
+                        </ul>
+                        <div class="social-links">
+                            <a href="#" aria-label="Follow on Facebook" class="social"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" aria-label="Follow on Twitter" class="social"><i class="fab fa-twitter"></i></a>
+                            <a href="#" aria-label="Follow on Instagram" class="social"><i class="fab fa-instagram"></i></a>
+                            <a href="#" aria-label="Follow on Linkedin" class="social"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div id="iframe">
+                        <h2><i class="fas fa-map"></i> Locations</h2>
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d1159047.2587492393!2d-3.7037902!3d40.4167754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1smadrid+tokyo+new+york+paris+ciudad+de+mexico!5e0!3m2!1ses!2ses!4v1700000000000!5m2!1ses!2ses" 
+                            width="100%" 
+                            height="450" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy">
+                        </iframe>
+                    </div>
                 </div>
             </section>
         </main>
+        <footer>
+            <h2 class="voltix_logo"><span>V</span>oltix</h2>
+            <a href="#hero" id="ArrowUp"><i class="fa-solid fa-arrow-up"></i></a>
+        </footer>
     </div>
 </body>
 </html>
