@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/all.min.css">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="./css/style.css">
-    <script defer src="./js/script.js"></script>
 </head>
 <body>
     <div id="hero" class="wrapper">
@@ -28,7 +27,7 @@
                 <span class="js-mobile-search-icon media-queries-search-icon">
                     <i class="fas fa-search"></i>
                 </span>
-                <a href="#"><span class="media-queries-cart-icon"><i class="fas fa-shopping-cart"></i></span></a>
+                <a href="#"><span class="media-queries-cart-icon cart-icon"><i class="fas fa-shopping-cart"></i></span></a>
                 <a target="_blank" style="color: blue !important;" href="/html/signup_voltix.html" class="media-queries-user-icon"><i class="fas fa-user"></i></a>
             </div>
             <nav>
@@ -45,7 +44,7 @@
                         </span>
                         <a href="#offers" class="nav_link"><i class="fas fa-tags"></i> Special Offers</a>
                         <a href="#locations" class="nav_link"><i class="fas fa-map-marker-alt"></i> Locations</a>
-                        <a href="#" class="nav_link"><i class="fas fa-shopping-cart"></i> Cart</a>
+                        <a href="#" class="nav_link cart-icon"><i class="fas fa-shopping-cart"></i> Cart</a>
                         <a href="/html/signup_voltix.html" class="nav_link"><i class="fas fa-user"></i> Account</a>
                     </li>
                 </ul>
@@ -71,91 +70,7 @@
             </section>
             <section id="offers" class="offers_section">
                 <h2 class="offers-section-title">Special Offers</h2>
-                <div class="offers_products">
-                    <article class="offer">
-                        <div class="offer_image">
-                            <img src="./images/6-piece-non-stick-baking-set (1).webp" alt="6 piece baking set">
-                        </div>
-                        <div class="offer_info">
-                            <div class="offer-title"><h2>6-Piece Baking Set</h2></div>
-                            <div class="offer-price"><p>$34.99</p></div>
-                            <div class="offer-stars"><p><i class="fas fa-star"></i> 4.7/5 — 824 reviews</p></div>
-                            <div class="offer-buy">
-                                <button>Buy Now <span><i class="fas fa-credit-card"></i></span></button>
-                                <button>Add To Cart <span><i class="fas fa-shopping-cart"></i></span></button>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="offer">
-                        <div class="offer_image">
-                            <img src="./images/adults-plain-cotton-tshirt-2-pack-teal (2).jpg" alt="cotton tshirt image">
-                        </div>
-                        <div class="offer_info">
-                            <div class="offer-title"><h2>Plain Cotton T-Shirt</h2></div>
-                            <div class="offer-price"><p>$19.99</p></div>
-                            <div class="offer-stars"><p><i class="fas fa-star"></i> 4.5/5 — 1,112 reviews</p></div>
-                            <div class="offer-buy">
-                                <button>Buy Now <span><i class="fas fa-credit-card"></i></span></button>
-                                <button>Add To Cart <span><i class="fas fa-shopping-cart"></i></span></button>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="offer">
-                        <div class="offer_image">
-                            <img src="./images/athletic-cotton-socks-6-pairs (1).jpg" alt="athletic socks">
-                        </div>
-                        <div class="offer_info">
-                            <div class="offer-title"><h2>Athletic Socks</h2></div>
-                            <div class="offer-price"><p>$14.99</p></div>
-                            <div class="offer-stars"><p><i class="fas fa-star"></i> 4.4/5 — 2,309 reviews</p></div>
-                            <div class="offer-buy">
-                                <button>Buy Now <span><i class="fas fa-credit-card"></i></span></button>
-                                <button>Add To Cart <span><i class="fas fa-shopping-cart"></i></span></button>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="offer">
-                        <div class="offer_image">
-                            <img src="./images/coffeemaker-with-glass-carafe-black.jpg" alt="coffeemaker">
-                        </div>
-                        <div class="offer_info">
-                            <div class="offer-title"><h2>Black Coffee Maker</h2></div>
-                            <div class="offer-price"><p>$54.99</p></div>
-                            <div class="offer-stars"><p><i class="fas fa-star"></i> 4.6/5 — 3,114 reviews</p></div>
-                            <div class="offer-buy">
-                                <button>Buy Now <span><i class="fas fa-credit-card"></i></span></button>
-                                <button>Add To Cart <span><i class="fas fa-shopping-cart"></i></span></button>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="offer">
-                        <div class="offer_image">
-                            <img src="./images/men-golf-polo-t-shirt-blue.jpg" alt="golf polo shirt">
-                        </div>
-                        <div class="offer_info">
-                            <div class="offer-title"><h2>Men's Golf Polo Shirt</h2></div>
-                            <div class="offer-price"><p>$27.99</p></div>
-                            <div class="offer-stars"><p><i class="fas fa-star"></i> 4.4/5 — 512 reviews</p></div>
-                            <div class="offer-buy">
-                                <button>Buy Now <span><i class="fas fa-credit-card"></i></span></button>
-                                <button>Add To Cart <span><i class="fas fa-shopping-cart"></i></span></button>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="offer">
-                        <div class="offer_image">
-                            <img src="./images/men-navigator-sunglasses-brown.jpg" alt="navigator sunglasses">
-                        </div>
-                        <div class="offer_info">
-                            <div class="offer-title"><h2>Sunglasses</h2></div>
-                            <div class="offer-price"><p>$24.99</p></div>
-                            <div class="offer-stars"><p><i class="fas fa-star"></i> 4.6/5 — 2,132 reviews</p></div>
-                            <div class="offer-buy">
-                                <button>Buy Now <span><i class="fas fa-credit-card"></i></span></button>
-                                <button>Add To Cart <span><i class="fas fa-shopping-cart"></i></span></button>
-                            </div>
-                        </div>
-                    </article>
+                <div id="js-offer-products" class="offers_products">
                 </div>
             </section>
             <section id="locations" class="locations_section">
@@ -197,5 +112,6 @@
             <a href="#hero" id="ArrowUp"><i class="fa-solid fa-arrow-up"></i></a>
         </footer>
     </div>
+    <script type="module" src="./js/script.js"></script>
 </body>
 </html>
