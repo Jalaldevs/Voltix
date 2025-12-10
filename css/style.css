@@ -48,22 +48,6 @@ header {
 .media-queries-header-icons a {
     position: relative;
 }
-.nav_link .fa-shopping-cart::after, .media-queries-cart-icon::after{
-    content: var(--cart-count);
-    display: flex;
-    font-size: 0.92rem;
-    justify-content: center;
-    align-items: center;
-    padding: 4px;
-    color: var(--white);
-    position: absolute;
-    background-color: var(--blue);
-    border-radius: 50%;
-    width: 10px;
-    height: 10px;
-    top: -17px;
-    left: 15px;
-}
 .nav_link .fa-shopping-cart::after{
     font-size: 0.75rem;
 }
