@@ -47,6 +47,7 @@ form input{
     width: 60%;
     font-weight: 700;
     letter-spacing: 1px;
+    font-size: 1.05rem;
 }
 @media (width < 1240px) {
     .box {

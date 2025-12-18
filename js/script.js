@@ -87,14 +87,17 @@ products.forEach(product => {
     }
 })
 
-    const addToCart = document.querySelectorAll('.add-to-cart-btn');
-    const cartQuantity = document.getElementById('cart-icon');
-    const select = document.querySelector('#qty-Travel\\ Backpack');
-    const value = select.value;
+const cartQuantity = document.querySelector('.cart-quantity');
+const mobileCartQuantity = document.querySelector('.mobile-cart-quantity');
+const addToCart = document.querySelectorAll('.add-to-cart-btn');
 
+addToCart.forEach(button => {
+    button.addEventListener('click', () => {
+        const productContainer = button.closest('.featured');
+        const select = productContainer.querySelector('select');
+        const value = select.value;
 
-    addToCart.forEach(button => {
-        button.addEventListener('click', () => {
-            
-        })
-    })
+        cartQuantity.textContent = value;
+        mobileCartQuantity.textContent = value;
+    });
+});

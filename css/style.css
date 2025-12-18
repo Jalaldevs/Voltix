@@ -4,12 +4,8 @@
     box-sizing: border-box;
     text-decoration: none;
     list-style: none;
-}
-html, body {
     scroll-behavior: smooth;
     font-family: 'Poppins', sans-serif;
-    background-color: #fff;
-    color: #111;
     scroll-padding: 2rem;
 }
 body.no-scroll {
@@ -77,6 +73,20 @@ header {
 .nav_link input::placeholder {
     color: var(--blue);
     opacity: 0.7;
+}
+.cart-icon , .mobile-cart {
+    position: relative;
+}
+.cart-quantity {
+    position: absolute;
+    bottom: 15px;
+    color: var(--blue);
+    font-size: 1.3rem;
+}
+.mobile-cart-quantity {
+    position: absolute;
+    bottom: 22px;
+    left: 15px;
 }
 .search-text-toggled{
     display: none;
@@ -339,7 +349,7 @@ footer {
     }
     .banner{
         width: 95%;
-        padding: 0 5rem 0 3rem;
+        padding: 0 6rem 0 3rem;
     }
     .banner h2{
         font-size: 1.7rem;
