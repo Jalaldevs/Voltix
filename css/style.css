@@ -23,6 +23,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 3.5rem;
+    position: fixed;
 }
 .voltix_logo{
     font-size: 2.2rem;
@@ -349,7 +350,6 @@ footer {
     }
     .banner{
         width: 95%;
-        padding: 0 6rem 0 3rem;
     }
     .banner h2{
         font-size: 1.7rem;
