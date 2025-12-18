@@ -194,6 +194,9 @@ header {
     width: 95%;
     align-items: start;
 }
+.featured_products .featured:last-child {
+    display: none;
+}
 .featured , .offer{
     flex: 1;
     border-radius: 1rem;
@@ -360,5 +363,8 @@ footer {
     }
     .offers_products {
         grid-template-columns: repeat(2, 1fr);
+    }
+    .featured_products .featured:last-child {
+        display: block;
     }
 }
