@@ -51,6 +51,9 @@ header {
 .media-queries-header-icons{
     display: none;
 }
+.media-queries-user-icon {
+    color: blue !important;
+}
 #search-wrapper{
     display: flex;
     gap: 5px;

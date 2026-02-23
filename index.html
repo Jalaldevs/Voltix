@@ -1,117 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Voltix</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.2/css/all.min.css">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="./css/style.css">
-</head>
-<body>
-    <div id="hero" class="wrapper">
-        <div class="mobile-search js-mobile-search">
-            <span class="mobile-search-close js-close-mobile-search">
-                <i class="fa-solid fa-x"></i>
-            </span>
-            <div class="mobile-search-bar">
-                <input class="mobile-search-input js-mobile-search-input" placeholder="Search Your Item Here..." type="text" required>
-                <span class="mobile-search-bar-icon"><i class="fas fa-search"></i></span>
-            </div>
-        </div>
-        <header>
-            <div>
-                <h2 class="voltix_logo"><span>V</span>oltix</h2>
-            </div>
-            <div class="media-queries-header-icons">
-                <span class="js-mobile-search-icon media-queries-search-icon">
-                    <i class="fas fa-search"></i>
-                </span>
-                <a class="mobile-cart" href="#"><span class="mobile-cart-quantity">0</span><i class="fas fa-shopping-cart"></i></a>
-                <a target="_blank" style="color: blue !important;" href="/html/signup_voltix.html" class="media-queries-user-icon"><i class="fas fa-user"></i></a>
-            </div>
-            <nav>
-                <ul class="nav_ul">
-                    <li class="nav_li">
-                        <span class="nav_link">
-                            <span id="search-wrapper">
-                                <input id="search-bar" type="text" placeholder="Search Your Item Here..." required>
-                                <span id="search-text-wrapper">
-                                    <i id="search-icon" class="fas fa-search"></i>
-                                    <span class="search-text"> Search</span>
-                                </span>
-                            </span>
-                        </span>
-                        <a href="#offers" class="nav_link"><i class="fas fa-tags"></i> Special Offers</a>
-                        <a href="#locations" class="nav_link"><i class="fas fa-map-marker-alt"></i> Locations</a>
-                        <a href="#" class="nav_link cart-icon"><i class="fas fa-shopping-cart"></i><span class="cart-quantity">0</span> Cart</a>
-                        <a href="/html/signup_voltix.html" class="nav_link"><i class="fas fa-user"></i> Account</a>
-                    </li>
-                </ul>
-            </nav>
-        </header>
-        <main>
-            <section class="banner_section">
-                <div class="banner">
-                    <div class="banner-info">
-                        <h2>Amazing <span>VR</span> Experience</h2>
-                        <p>Step into the future of reality.</p>
-                        <a class="hero-link" href="#">Buy Now!!<span class="blue-span"></span></a>
-                    </div>
-                    <div class="banner-image">
-                        <img src="./images/realistic-virtual-reality-headset.png" alt="realistic virtual reality headset">
-                    </div>
-                </div>
-            </section>
-            <section class="featured_section">
-                <h2 class="featured-section-title">Featured Products</h2>
-                <div id="js-featured-products" class="featured_products">
-                </div>
-            </section>
-            <section id="offers" class="offers_section">
-                <h2 class="offers-section-title">Special Offers</h2>
-                <div id="js-offer-products" class="offers_products">
-                </div>
-            </section>
-            <section id="locations" class="locations_section">
-                <div class="iframe_wrapper">
-                    <div class="contact">
-                        <div class="contact-title-wrapper">
-                            <h2><i class="fas fa-phone-alt"></i> Contact Us</h2>
-                            <p class="contact-intro">Have a question or need help? Reach out — we're happy to assist.</p>
-                        </div>
-                        <ul class="contact-list">
-                            <li class="contact-item"><i class="fas fa-map-marker-alt"></i> 123 Voltix, Suite 400, Madrid, ES</li>
-                            <li class="contact-item"><i class="fas fa-phone"></i> <a href="tel:+34123456789">+34 123 456 789</a></li>
-                            <li class="contact-item"><i class="fas fa-envelope"></i> <a href="mailto:support@voltix.example">support@voltix.example</a></li>
-                            <li class="contact-item"><i class="fas fa-clock"></i> Mon–Fri: 9:00 — 18:00</li>
-                        </ul>
-                        <div class="social-links">
-                            <a href="#" aria-label="Follow on Facebook" class="social"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" aria-label="Follow on Twitter" class="social"><i class="fab fa-twitter"></i></a>
-                            <a href="#" aria-label="Follow on Instagram" class="social"><i class="fab fa-instagram"></i></a>
-                            <a href="#" aria-label="Follow on Linkedin" class="social"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                    <div id="iframe">
-                        <h2><i class="fas fa-map"></i> Locations</h2>
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d1159047.2587492393!2d-3.7037902!3d40.4167754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1smadrid+tokyo+new+york+paris+ciudad+de+mexico!5e0!3m2!1ses!2ses!4v1700000000000!5m2!1ses!2ses" 
-                            width="100%" 
-                            height="450" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy">
-                        </iframe>
-                    </div>
-                </div>
-            </section>
-        </main>
-        <footer>
-            <h2 class="voltix_logo"><span>V</span>oltix</h2>
-            <a href="#hero" id="ArrowUp"><i class="fa-solid fa-arrow-up"></i></a>
-        </footer>
-    </div>
-    <script type="module" src="./js/script.js"></script>
-</body>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
