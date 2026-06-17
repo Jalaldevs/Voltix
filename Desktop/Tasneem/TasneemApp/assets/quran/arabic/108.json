@@ -1,0 +1,66 @@
+{
+  "language": "en",
+  "audio": {
+    "1": {
+      "reciter": "Mishary Rashid Al-Afasy",
+      "url": "https://server8.mp3quran.net/afs/108.mp3",
+      "originalUrl": "https://server8.mp3quran.net/afs/108.mp3",
+      "type": "complete_surah"
+    },
+    "2": {
+      "reciter": "Abu Bakr Al-Shatri",
+      "url": "https://server11.mp3quran.net/shatri/108.mp3",
+      "originalUrl": "https://server11.mp3quran.net/shatri/108.mp3",
+      "type": "complete_surah"
+    },
+    "3": {
+      "reciter": "Nasser Al-Qatami",
+      "url": "https://server6.mp3quran.net/qtm/108.mp3",
+      "originalUrl": "https://server6.mp3quran.net/qtm/108.mp3",
+      "type": "complete_surah"
+    },
+    "4": {
+      "reciter": "Yasser Al-Dosari",
+      "url": "https://server11.mp3quran.net/yasser/108.mp3",
+      "originalUrl": "https://server11.mp3quran.net/yasser/108.mp3",
+      "type": "complete_surah"
+    }
+  },
+  "id": 108,
+  "name": "الكوثر",
+  "transliteration": "Al-Kawthar",
+  "translation": "The Abundance",
+  "type": "meccan",
+  "total_verses": 3,
+  "verses": [
+    {
+      "id": 1,
+      "text": "إِنَّآ أَعۡطَيۡنَٰكَ ٱلۡكَوۡثَرَ",
+      "translation": "Indeed, We have granted you, [O Muhammad], al-Kawthar",
+      "juz": 30,
+      "hizb": 60
+    },
+    {
+      "id": 2,
+      "text": "فَصَلِّ لِرَبِّكَ وَٱنۡحَرۡ",
+      "translation": "So pray to your Lord and sacrifice [to Him alone]",
+      "juz": 30,
+      "hizb": 60
+    },
+    {
+      "id": 3,
+      "text": "إِنَّ شَانِئَكَ هُوَ ٱلۡأَبۡتَرُ",
+      "translation": "Indeed, your enemy is the one cut off",
+      "juz": 30,
+      "hizb": 60
+    }
+  ],
+  "juz_range": [
+    30,
+    30
+  ],
+  "hizb_range": [
+    60,
+    60
+  ]
+}

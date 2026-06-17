@@ -1,0 +1,66 @@
+{
+  "language": "en",
+  "audio": {
+    "1": {
+      "reciter": "Mishary Rashid Al-Afasy",
+      "url": "https://server8.mp3quran.net/afs/110.mp3",
+      "originalUrl": "https://server8.mp3quran.net/afs/110.mp3",
+      "type": "complete_surah"
+    },
+    "2": {
+      "reciter": "Abu Bakr Al-Shatri",
+      "url": "https://server11.mp3quran.net/shatri/110.mp3",
+      "originalUrl": "https://server11.mp3quran.net/shatri/110.mp3",
+      "type": "complete_surah"
+    },
+    "3": {
+      "reciter": "Nasser Al-Qatami",
+      "url": "https://server6.mp3quran.net/qtm/110.mp3",
+      "originalUrl": "https://server6.mp3quran.net/qtm/110.mp3",
+      "type": "complete_surah"
+    },
+    "4": {
+      "reciter": "Yasser Al-Dosari",
+      "url": "https://server11.mp3quran.net/yasser/110.mp3",
+      "originalUrl": "https://server11.mp3quran.net/yasser/110.mp3",
+      "type": "complete_surah"
+    }
+  },
+  "id": 110,
+  "name": "النصر",
+  "transliteration": "An-Nasr",
+  "translation": "The Divine Support",
+  "type": "medinan",
+  "total_verses": 3,
+  "verses": [
+    {
+      "id": 1,
+      "text": "إِذَا جَآءَ نَصۡرُ ٱللَّهِ وَٱلۡفَتۡحُ",
+      "translation": "When the victory of Allah has come and the conquest",
+      "juz": 30,
+      "hizb": 60
+    },
+    {
+      "id": 2,
+      "text": "وَرَأَيۡتَ ٱلنَّاسَ يَدۡخُلُونَ فِي دِينِ ٱللَّهِ أَفۡوَاجٗا",
+      "translation": "And you see the people entering into the religion of Allah in multitudes",
+      "juz": 30,
+      "hizb": 60
+    },
+    {
+      "id": 3,
+      "text": "فَسَبِّحۡ بِحَمۡدِ رَبِّكَ وَٱسۡتَغۡفِرۡهُۚ إِنَّهُۥ كَانَ تَوَّابَۢا",
+      "translation": "Then exalt [Him] with praise of your Lord and ask forgiveness of Him. Indeed, He is ever Accepting of repentance",
+      "juz": 30,
+      "hizb": 60
+    }
+  ],
+  "juz_range": [
+    30,
+    30
+  ],
+  "hizb_range": [
+    60,
+    60
+  ]
+}

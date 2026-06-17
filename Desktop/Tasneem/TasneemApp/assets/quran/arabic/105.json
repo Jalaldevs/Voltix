@@ -1,0 +1,80 @@
+{
+  "language": "en",
+  "audio": {
+    "1": {
+      "reciter": "Mishary Rashid Al-Afasy",
+      "url": "https://server8.mp3quran.net/afs/105.mp3",
+      "originalUrl": "https://server8.mp3quran.net/afs/105.mp3",
+      "type": "complete_surah"
+    },
+    "2": {
+      "reciter": "Abu Bakr Al-Shatri",
+      "url": "https://server11.mp3quran.net/shatri/105.mp3",
+      "originalUrl": "https://server11.mp3quran.net/shatri/105.mp3",
+      "type": "complete_surah"
+    },
+    "3": {
+      "reciter": "Nasser Al-Qatami",
+      "url": "https://server6.mp3quran.net/qtm/105.mp3",
+      "originalUrl": "https://server6.mp3quran.net/qtm/105.mp3",
+      "type": "complete_surah"
+    },
+    "4": {
+      "reciter": "Yasser Al-Dosari",
+      "url": "https://server11.mp3quran.net/yasser/105.mp3",
+      "originalUrl": "https://server11.mp3quran.net/yasser/105.mp3",
+      "type": "complete_surah"
+    }
+  },
+  "id": 105,
+  "name": "الفيل",
+  "transliteration": "Al-Fil",
+  "translation": "The Elephant",
+  "type": "meccan",
+  "total_verses": 5,
+  "verses": [
+    {
+      "id": 1,
+      "text": "أَلَمۡ تَرَ كَيۡفَ فَعَلَ رَبُّكَ بِأَصۡحَٰبِ ٱلۡفِيلِ",
+      "translation": "Have you not considered, [O Muhammad], how your Lord dealt with the companions of the elephant",
+      "juz": 30,
+      "hizb": 60
+    },
+    {
+      "id": 2,
+      "text": "أَلَمۡ يَجۡعَلۡ كَيۡدَهُمۡ فِي تَضۡلِيلٖ",
+      "translation": "Did He not make their plan into misguidance",
+      "juz": 30,
+      "hizb": 60
+    },
+    {
+      "id": 3,
+      "text": "وَأَرۡسَلَ عَلَيۡهِمۡ طَيۡرًا أَبَابِيلَ",
+      "translation": "And He sent against them birds in flocks",
+      "juz": 30,
+      "hizb": 60
+    },
+    {
+      "id": 4,
+      "text": "تَرۡمِيهِم بِحِجَارَةٖ مِّن سِجِّيلٖ",
+      "translation": "Striking them with stones of hard clay",
+      "juz": 30,
+      "hizb": 60
+    },
+    {
+      "id": 5,
+      "text": "فَجَعَلَهُمۡ كَعَصۡفٖ مَّأۡكُولِۭ",
+      "translation": "And He made them like eaten straw",
+      "juz": 30,
+      "hizb": 60
+    }
+  ],
+  "juz_range": [
+    30,
+    30
+  ],
+  "hizb_range": [
+    60,
+    60
+  ]
+}

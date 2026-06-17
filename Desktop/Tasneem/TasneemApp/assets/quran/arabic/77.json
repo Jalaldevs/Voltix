@@ -1,0 +1,395 @@
+{
+  "language": "en",
+  "audio": {
+    "1": {
+      "reciter": "Mishary Rashid Al-Afasy",
+      "url": "https://server8.mp3quran.net/afs/077.mp3",
+      "originalUrl": "https://server8.mp3quran.net/afs/077.mp3",
+      "type": "complete_surah"
+    },
+    "2": {
+      "reciter": "Abu Bakr Al-Shatri",
+      "url": "https://server11.mp3quran.net/shatri/077.mp3",
+      "originalUrl": "https://server11.mp3quran.net/shatri/077.mp3",
+      "type": "complete_surah"
+    },
+    "3": {
+      "reciter": "Nasser Al-Qatami",
+      "url": "https://server6.mp3quran.net/qtm/077.mp3",
+      "originalUrl": "https://server6.mp3quran.net/qtm/077.mp3",
+      "type": "complete_surah"
+    },
+    "4": {
+      "reciter": "Yasser Al-Dosari",
+      "url": "https://server11.mp3quran.net/yasser/077.mp3",
+      "originalUrl": "https://server11.mp3quran.net/yasser/077.mp3",
+      "type": "complete_surah"
+    }
+  },
+  "id": 77,
+  "name": "المرسلات",
+  "transliteration": "Al-Mursalat",
+  "translation": "The Emissaries",
+  "type": "meccan",
+  "total_verses": 50,
+  "verses": [
+    {
+      "id": 1,
+      "text": "وَٱلۡمُرۡسَلَٰتِ عُرۡفٗا",
+      "translation": "By those [winds] sent forth in gusts",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 2,
+      "text": "فَٱلۡعَٰصِفَٰتِ عَصۡفٗا",
+      "translation": "And the winds that blow violently",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 3,
+      "text": "وَٱلنَّـٰشِرَٰتِ نَشۡرٗا",
+      "translation": "And [by] the winds that spread [clouds]",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 4,
+      "text": "فَٱلۡفَٰرِقَٰتِ فَرۡقٗا",
+      "translation": "And those [angels] who bring criterion",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 5,
+      "text": "فَٱلۡمُلۡقِيَٰتِ ذِكۡرًا",
+      "translation": "And those [angels] who deliver a message",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 6,
+      "text": "عُذۡرًا أَوۡ نُذۡرًا",
+      "translation": "As justification or warning",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 7,
+      "text": "إِنَّمَا تُوعَدُونَ لَوَٰقِعٞ",
+      "translation": "Indeed, what you are promised is to occur",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 8,
+      "text": "فَإِذَا ٱلنُّجُومُ طُمِسَتۡ",
+      "translation": "So when the stars are obliterated",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 9,
+      "text": "وَإِذَا ٱلسَّمَآءُ فُرِجَتۡ",
+      "translation": "And when the heaven is opened",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 10,
+      "text": "وَإِذَا ٱلۡجِبَالُ نُسِفَتۡ",
+      "translation": "And when the mountains are blown away",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 11,
+      "text": "وَإِذَا ٱلرُّسُلُ أُقِّتَتۡ",
+      "translation": "And when the messengers' time has come",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 12,
+      "text": "لِأَيِّ يَوۡمٍ أُجِّلَتۡ",
+      "translation": "For what Day was it postponed",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 13,
+      "text": "لِيَوۡمِ ٱلۡفَصۡلِ",
+      "translation": "For the Day of Judgement",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 14,
+      "text": "وَمَآ أَدۡرَىٰكَ مَا يَوۡمُ ٱلۡفَصۡلِ",
+      "translation": "And what can make you know what is the Day of Judgement",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 15,
+      "text": "وَيۡلٞ يَوۡمَئِذٖ لِّلۡمُكَذِّبِينَ",
+      "translation": "Woe, that Day, to the deniers",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 16,
+      "text": "أَلَمۡ نُهۡلِكِ ٱلۡأَوَّلِينَ",
+      "translation": "Did We not destroy the former peoples",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 17,
+      "text": "ثُمَّ نُتۡبِعُهُمُ ٱلۡأٓخِرِينَ",
+      "translation": "Then We will follow them with the later ones",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 18,
+      "text": "كَذَٰلِكَ نَفۡعَلُ بِٱلۡمُجۡرِمِينَ",
+      "translation": "Thus do We deal with the criminals",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 19,
+      "text": "وَيۡلٞ يَوۡمَئِذٖ لِّلۡمُكَذِّبِينَ",
+      "translation": "Woe, that Day, to the deniers",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 20,
+      "text": "أَلَمۡ نَخۡلُقكُّم مِّن مَّآءٖ مَّهِينٖ",
+      "translation": "Did We not create you from a liquid disdained",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 21,
+      "text": "فَجَعَلۡنَٰهُ فِي قَرَارٖ مَّكِينٍ",
+      "translation": "And We placed it in a firm lodging",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 22,
+      "text": "إِلَىٰ قَدَرٖ مَّعۡلُومٖ",
+      "translation": "For a known extent",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 23,
+      "text": "فَقَدَرۡنَا فَنِعۡمَ ٱلۡقَٰدِرُونَ",
+      "translation": "And We determined [it], and excellent [are We] to determine",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 24,
+      "text": "وَيۡلٞ يَوۡمَئِذٖ لِّلۡمُكَذِّبِينَ",
+      "translation": "Woe, that Day, to the deniers",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 25,
+      "text": "أَلَمۡ نَجۡعَلِ ٱلۡأَرۡضَ كِفَاتًا",
+      "translation": "Have We not made the earth a container",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 26,
+      "text": "أَحۡيَآءٗ وَأَمۡوَٰتٗا",
+      "translation": "Of the living and the dead",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 27,
+      "text": "وَجَعَلۡنَا فِيهَا رَوَٰسِيَ شَٰمِخَٰتٖ وَأَسۡقَيۡنَٰكُم مَّآءٗ فُرَاتٗا",
+      "translation": "And We placed therein lofty, firmly set mountains and have given you to drink sweet water",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 28,
+      "text": "وَيۡلٞ يَوۡمَئِذٖ لِّلۡمُكَذِّبِينَ",
+      "translation": "Woe, that Day, to the deniers",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 29,
+      "text": "ٱنطَلِقُوٓاْ إِلَىٰ مَا كُنتُم بِهِۦ تُكَذِّبُونَ",
+      "translation": "[They will be told], \"Proceed to that which you used to deny",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 30,
+      "text": "ٱنطَلِقُوٓاْ إِلَىٰ ظِلّٖ ذِي ثَلَٰثِ شُعَبٖ",
+      "translation": "Proceed to a shadow [of smoke] having three columns",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 31,
+      "text": "لَّا ظَلِيلٖ وَلَا يُغۡنِي مِنَ ٱللَّهَبِ",
+      "translation": "[But having] no cool shade and availing not against the flame",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 32,
+      "text": "إِنَّهَا تَرۡمِي بِشَرَرٖ كَٱلۡقَصۡرِ",
+      "translation": "Indeed, it throws sparks [as huge] as a fortress",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 33,
+      "text": "كَأَنَّهُۥ جِمَٰلَتٞ صُفۡرٞ",
+      "translation": "As if they were yellowish [black] camels",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 34,
+      "text": "وَيۡلٞ يَوۡمَئِذٖ لِّلۡمُكَذِّبِينَ",
+      "translation": "Woe, that Day, to the deniers",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 35,
+      "text": "هَٰذَا يَوۡمُ لَا يَنطِقُونَ",
+      "translation": "This is a Day they will not speak",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 36,
+      "text": "وَلَا يُؤۡذَنُ لَهُمۡ فَيَعۡتَذِرُونَ",
+      "translation": "Nor will it be permitted for them to make an excuse",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 37,
+      "text": "وَيۡلٞ يَوۡمَئِذٖ لِّلۡمُكَذِّبِينَ",
+      "translation": "Woe, that Day, to the deniers",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 38,
+      "text": "هَٰذَا يَوۡمُ ٱلۡفَصۡلِۖ جَمَعۡنَٰكُمۡ وَٱلۡأَوَّلِينَ",
+      "translation": "This is the Day of Judgement; We will have assembled you and the former peoples",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 39,
+      "text": "فَإِن كَانَ لَكُمۡ كَيۡدٞ فَكِيدُونِ",
+      "translation": "So if you have a plan, then plan against Me",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 40,
+      "text": "وَيۡلٞ يَوۡمَئِذٖ لِّلۡمُكَذِّبِينَ",
+      "translation": "Woe, that Day, to the deniers",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 41,
+      "text": "إِنَّ ٱلۡمُتَّقِينَ فِي ظِلَٰلٖ وَعُيُونٖ",
+      "translation": "Indeed, the righteous will be among shades and springs",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 42,
+      "text": "وَفَوَٰكِهَ مِمَّا يَشۡتَهُونَ",
+      "translation": "And fruits from whatever they desire",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 43,
+      "text": "كُلُواْ وَٱشۡرَبُواْ هَنِيٓـَٔۢا بِمَا كُنتُمۡ تَعۡمَلُونَ",
+      "translation": "[Being told], \"Eat and drink in satisfaction for what you used to do",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 44,
+      "text": "إِنَّا كَذَٰلِكَ نَجۡزِي ٱلۡمُحۡسِنِينَ",
+      "translation": "Indeed, We thus reward the doers of good",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 45,
+      "text": "وَيۡلٞ يَوۡمَئِذٖ لِّلۡمُكَذِّبِينَ",
+      "translation": "Woe, that Day, to the deniers",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 46,
+      "text": "كُلُواْ وَتَمَتَّعُواْ قَلِيلًا إِنَّكُم مُّجۡرِمُونَ",
+      "translation": "[O disbelievers], eat and enjoy yourselves a little; indeed, you are criminals",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 47,
+      "text": "وَيۡلٞ يَوۡمَئِذٖ لِّلۡمُكَذِّبِينَ",
+      "translation": "Woe, that Day, to the deniers",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 48,
+      "text": "وَإِذَا قِيلَ لَهُمُ ٱرۡكَعُواْ لَا يَرۡكَعُونَ",
+      "translation": "And when it is said to them, \"Bow [in prayer],\" they do not bow",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 49,
+      "text": "وَيۡلٞ يَوۡمَئِذٖ لِّلۡمُكَذِّبِينَ",
+      "translation": "Woe, that Day, to the deniers",
+      "juz": 29,
+      "hizb": 58
+    },
+    {
+      "id": 50,
+      "text": "فَبِأَيِّ حَدِيثِۭ بَعۡدَهُۥ يُؤۡمِنُونَ",
+      "translation": "Then in what statement after the Qur'an will they believe",
+      "juz": 29,
+      "hizb": 58
+    }
+  ],
+  "juz_range": [
+    29,
+    29
+  ],
+  "hizb_range": [
+    58,
+    58
+  ]
+}

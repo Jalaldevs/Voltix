@@ -1,0 +1,122 @@
+{
+  "language": "en",
+  "audio": {
+    "1": {
+      "reciter": "Mishary Rashid Al-Afasy",
+      "url": "https://server8.mp3quran.net/afs/101.mp3",
+      "originalUrl": "https://server8.mp3quran.net/afs/101.mp3",
+      "type": "complete_surah"
+    },
+    "2": {
+      "reciter": "Abu Bakr Al-Shatri",
+      "url": "https://server11.mp3quran.net/shatri/101.mp3",
+      "originalUrl": "https://server11.mp3quran.net/shatri/101.mp3",
+      "type": "complete_surah"
+    },
+    "3": {
+      "reciter": "Nasser Al-Qatami",
+      "url": "https://server6.mp3quran.net/qtm/101.mp3",
+      "originalUrl": "https://server6.mp3quran.net/qtm/101.mp3",
+      "type": "complete_surah"
+    },
+    "4": {
+      "reciter": "Yasser Al-Dosari",
+      "url": "https://server11.mp3quran.net/yasser/101.mp3",
+      "originalUrl": "https://server11.mp3quran.net/yasser/101.mp3",
+      "type": "complete_surah"
+    }
+  },
+  "id": 101,
+  "name": "القارعة",
+  "transliteration": "Al-Qari'ah",
+  "translation": "The Calamity",
+  "type": "meccan",
+  "total_verses": 11,
+  "verses": [
+    {
+      "id": 1,
+      "text": "ٱلۡقَارِعَةُ",
+      "translation": "The Striking Calamity",
+      "juz": 30,
+      "hizb": 60
+    },
+    {
+      "id": 2,
+      "text": "مَا ٱلۡقَارِعَةُ",
+      "translation": "What is the Striking Calamity",
+      "juz": 30,
+      "hizb": 60
+    },
+    {
+      "id": 3,
+      "text": "وَمَآ أَدۡرَىٰكَ مَا ٱلۡقَارِعَةُ",
+      "translation": "And what can make you know what is the Striking Calamity",
+      "juz": 30,
+      "hizb": 60
+    },
+    {
+      "id": 4,
+      "text": "يَوۡمَ يَكُونُ ٱلنَّاسُ كَٱلۡفَرَاشِ ٱلۡمَبۡثُوثِ",
+      "translation": "It is the Day when people will be like moths, dispersed",
+      "juz": 30,
+      "hizb": 60
+    },
+    {
+      "id": 5,
+      "text": "وَتَكُونُ ٱلۡجِبَالُ كَٱلۡعِهۡنِ ٱلۡمَنفُوشِ",
+      "translation": "And the mountains will be like wool, fluffed up",
+      "juz": 30,
+      "hizb": 60
+    },
+    {
+      "id": 6,
+      "text": "فَأَمَّا مَن ثَقُلَتۡ مَوَٰزِينُهُۥ",
+      "translation": "Then as for one whose scales are heavy [with good deeds]",
+      "juz": 30,
+      "hizb": 60
+    },
+    {
+      "id": 7,
+      "text": "فَهُوَ فِي عِيشَةٖ رَّاضِيَةٖ",
+      "translation": "He will be in a pleasant life",
+      "juz": 30,
+      "hizb": 60
+    },
+    {
+      "id": 8,
+      "text": "وَأَمَّا مَنۡ خَفَّتۡ مَوَٰزِينُهُۥ",
+      "translation": "But as for one whose scales are light",
+      "juz": 30,
+      "hizb": 60
+    },
+    {
+      "id": 9,
+      "text": "فَأُمُّهُۥ هَاوِيَةٞ",
+      "translation": "His refuge will be an abyss",
+      "juz": 30,
+      "hizb": 60
+    },
+    {
+      "id": 10,
+      "text": "وَمَآ أَدۡرَىٰكَ مَا هِيَهۡ",
+      "translation": "And what can make you know what that is",
+      "juz": 30,
+      "hizb": 60
+    },
+    {
+      "id": 11,
+      "text": "نَارٌ حَامِيَةُۢ",
+      "translation": "It is a Fire, intensely hot",
+      "juz": 30,
+      "hizb": 60
+    }
+  ],
+  "juz_range": [
+    30,
+    30
+  ],
+  "hizb_range": [
+    60,
+    60
+  ]
+}

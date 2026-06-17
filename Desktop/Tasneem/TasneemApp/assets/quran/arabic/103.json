@@ -1,0 +1,66 @@
+{
+  "language": "en",
+  "audio": {
+    "1": {
+      "reciter": "Mishary Rashid Al-Afasy",
+      "url": "https://server8.mp3quran.net/afs/103.mp3",
+      "originalUrl": "https://server8.mp3quran.net/afs/103.mp3",
+      "type": "complete_surah"
+    },
+    "2": {
+      "reciter": "Abu Bakr Al-Shatri",
+      "url": "https://server11.mp3quran.net/shatri/103.mp3",
+      "originalUrl": "https://server11.mp3quran.net/shatri/103.mp3",
+      "type": "complete_surah"
+    },
+    "3": {
+      "reciter": "Nasser Al-Qatami",
+      "url": "https://server6.mp3quran.net/qtm/103.mp3",
+      "originalUrl": "https://server6.mp3quran.net/qtm/103.mp3",
+      "type": "complete_surah"
+    },
+    "4": {
+      "reciter": "Yasser Al-Dosari",
+      "url": "https://server11.mp3quran.net/yasser/103.mp3",
+      "originalUrl": "https://server11.mp3quran.net/yasser/103.mp3",
+      "type": "complete_surah"
+    }
+  },
+  "id": 103,
+  "name": "العصر",
+  "transliteration": "Al-'Asr",
+  "translation": "The Declining Day",
+  "type": "meccan",
+  "total_verses": 3,
+  "verses": [
+    {
+      "id": 1,
+      "text": "وَٱلۡعَصۡرِ",
+      "translation": "By time",
+      "juz": 30,
+      "hizb": 60
+    },
+    {
+      "id": 2,
+      "text": "إِنَّ ٱلۡإِنسَٰنَ لَفِي خُسۡرٍ",
+      "translation": "Indeed, mankind is in loss",
+      "juz": 30,
+      "hizb": 60
+    },
+    {
+      "id": 3,
+      "text": "إِلَّا ٱلَّذِينَ ءَامَنُواْ وَعَمِلُواْ ٱلصَّـٰلِحَٰتِ وَتَوَاصَوۡاْ بِٱلۡحَقِّ وَتَوَاصَوۡاْ بِٱلصَّبۡرِ",
+      "translation": "Except for those who have believed and done righteous deeds and advised each other to truth and advised each other to patience",
+      "juz": 30,
+      "hizb": 60
+    }
+  ],
+  "juz_range": [
+    30,
+    30
+  ],
+  "hizb_range": [
+    60,
+    60
+  ]
+}
