@@ -72,6 +72,7 @@ const DynamicSunnahTranslation = ({ item, selectedLang, defaultSubtitle, textSty
   useEffect(() => {
     let active = true;
     if (!selectedLang || selectedLang === 'ara' || !item.sunnah?.book || !item.sunnah?.hadithNumber) {
+      setTranslation(null);
       return;
     }
     const fetchTrans = async () => {
