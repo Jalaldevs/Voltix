@@ -24,6 +24,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useFonts } from 'expo-font';
 import useAppTranslation from '../hooks/useAppTranslation';
 import usePremium from '../hooks/usePremium';
+import SearchModal from './search/SearchModal';
 import { getTafseerText, getMultipleTafseerTexts } from '../utils/tafseerDb';
 import {
   getAvailableTranslations,
@@ -319,7 +320,7 @@ export function QuranLanguageSheet({ visible, onClose, translationsKeys, languag
 
 // ─── Tafseer picker (View overlay — safe inside Modal) ────────────────────────
 // Single-select: user picks a tafseer to add to their active list.
-function TafseerPickerSheet({ visible, onClose, onSelect, isDarkMode, accentColor, textColor, mutedColor, isPremium, requirePremium, t, language }) {
+function TafseerPickerSheet({ visible, onClose, onOpenSearch, onSelect, isDarkMode, accentColor, textColor, mutedColor, isPremium, requirePremium, t, language }) {
   const sheetBg = isDarkMode ? '#1e293b' : '#ffffff';
   const itemActiveBg = isDarkMode ? 'rgba(96,165,250,0.15)' : 'rgba(25,118,210,0.09)';
 
@@ -352,9 +353,16 @@ function TafseerPickerSheet({ visible, onClose, onSelect, isDarkMode, accentColo
           <Text style={{ fontSize: scaleFontSize(18), fontWeight: '700', color: textColor }}>
             Tafaseer Collection
           </Text>
-          <TouchableOpacity onPress={onClose} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
-            <Ionicons name="close-outline" size={ms(28)} color={textColor} />
-          </TouchableOpacity>
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: ms(8) }}>
+            {onOpenSearch && (
+              <TouchableOpacity onPress={onOpenSearch} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+                <Ionicons name="search-outline" size={ms(26)} color={textColor} />
+              </TouchableOpacity>
+            )}
+            <TouchableOpacity onPress={onClose} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+              <Ionicons name="close-outline" size={ms(28)} color={textColor} />
+            </TouchableOpacity>
+          </View>
         </View>
         <FlatList
           data={sortedTafseerList}
@@ -407,7 +415,7 @@ function TafseerPickerSheet({ visible, onClose, onSelect, isDarkMode, accentColo
 // ─── Tafseer content sheet (View overlay — safe inside Modal) ─────────────────
 // Comparative reader: stacked cards, one per selected tafseer edition.
 function TafseerContentSheet({
-  visible, onClose, onAddTafseer, onRemoveTafseer,
+  visible, onClose, onOpenSearch, onAddTafseer, onRemoveTafseer,
   tafseerContents, tafseerLoading,
   surahName, ayahId,
   onPrev, onNext, hasPrev, hasNext,
@@ -467,6 +475,11 @@ function TafseerContentSheet({
             )}
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: ms(8) }}>
+            {onOpenSearch && (
+              <TouchableOpacity onPress={onOpenSearch} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+                <Ionicons name="search-outline" size={ms(26)} color={textColor} />
+              </TouchableOpacity>
+            )}
             <TouchableOpacity onPress={onClose} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
               <Ionicons name="close-outline" size={ms(30)} color={textColor} />
             </TouchableOpacity>
@@ -671,6 +684,9 @@ const ReferenceModal = ({
 
   // ── Quran language picker state ─────────────────────────────────────────────
   const [quranLangSheetVisible, setQuranLangSheetVisible] = useState(false);
+
+  // Search Modal state
+  const [searchModalVisible, setSearchModalVisible] = useState(false);
 
   // ── Tafseer state ───────────────────────────────────────────────────────────
   const [tafseerPickerVisible, setTafseerPickerVisible] = useState(false);
@@ -1114,8 +1130,9 @@ const ReferenceModal = ({
 
   // ── Render ─────────────────────────────────────────────────────────────────
   return (
-    <Modal visible={visible} transparent={false} animationType="slide" statusBarTranslucent onRequestClose={onClose}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={headerBg} />
+    <>
+      <Modal visible={visible} transparent={false} animationType="slide" statusBarTranslucent onRequestClose={onClose}>
+        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={headerBg} />
 
       <View style={[styles.container, { backgroundColor: bgColor }]}>
         {/* Header */}
@@ -1234,6 +1251,7 @@ const ReferenceModal = ({
           <TafseerPickerSheet
             visible={tafseerPickerVisible}
             onClose={() => setTafseerPickerVisible(false)}
+            onOpenSearch={() => setSearchModalVisible(true)}
             onSelect={(newKey) => {
               setTafseerPickerVisible(false);
               if (!selectedTafseerKeys.includes(newKey)) {
@@ -1265,6 +1283,7 @@ const ReferenceModal = ({
           <TafseerContentSheet
             visible={tafseerContentVisible}
             onClose={() => setTafseerContentVisible(false)}
+            onOpenSearch={() => setSearchModalVisible(true)}
             onAddTafseer={(newKey) => {
               if (!selectedTafseerKeys.includes(newKey)) {
                 const newKeys = [...selectedTafseerKeys, newKey];
@@ -1306,6 +1325,12 @@ const ReferenceModal = ({
         )}
       </View>
     </Modal>
+    
+    <SearchModal 
+      visible={searchModalVisible} 
+      onClose={() => setSearchModalVisible(false)} 
+    />
+    </>
   );
 };
 
