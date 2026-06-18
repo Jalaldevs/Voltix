@@ -1346,7 +1346,11 @@ const ReferenceModal = ({
             selectedLang={selectedSunnahLang}
             onSelect={(val) => {
               setSelectedSunnahLang(val);
-              AsyncStorage.setItem('@reference_sunnah_lang', val).catch(()=>{});
+              if (val) {
+                AsyncStorage.setItem('@reference_sunnah_lang', val).catch(()=>{});
+              } else {
+                AsyncStorage.setItem('@reference_sunnah_lang', 'ara').catch(()=>{});
+              }
             }}
             isDarkMode={isDarkMode}
             accentColor={accentColor}
