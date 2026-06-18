@@ -474,7 +474,7 @@ function TafseerContentSheet({
                 onPress={() => {
                   setIsAdding(true);
                   setTimeout(() => {
-                    flatListRef.current?.scrollToEnd({ animated: true });
+                    flatListRef.current?.scrollToOffset({ offset: 0, animated: true });
                   }, 150);
                 }}
                 hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
@@ -508,6 +508,11 @@ function TafseerContentSheet({
             ref={flatListRef}
             data={(() => {
               const items = [];
+              
+              if (isAdding) {
+                items.push({ type: 'add_menu', key: 'add_menu' });
+              }
+
               tafseerContents.forEach((tf) => {
                 items.push({ type: 'header', key: `header-${tf.key}`, tfKey: tf.key, label: tf.label });
                 const paragraphs = tf.text.split(/\n+/).filter(p => p.trim());
@@ -520,9 +525,7 @@ function TafseerContentSheet({
               if (!isAdding && availableTafseers.length > 0) {
                 items.push({ type: 'add_button', key: 'add_button' });
               }
-              if (isAdding) {
-                items.push({ type: 'add_menu', key: 'add_menu' });
-              }
+              
               return items;
             })()}
             keyExtractor={(item) => item.key}
@@ -598,7 +601,7 @@ function TafseerContentSheet({
               }
               if (item.type === 'add_menu') {
                 return (
-                  <View style={{ marginTop: ms(8), backgroundColor: isDarkMode ? '#1e293b' : '#f8fafc', borderRadius: ms(14), padding: ms(12), borderWidth: 1, borderColor: cardBorder }}>
+                  <View style={{ marginBottom: ms(12), backgroundColor: isDarkMode ? '#1e293b' : '#f8fafc', borderRadius: ms(14), padding: ms(12), borderWidth: 1, borderColor: cardBorder }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: ms(12) }}>
                       <Text style={{ color: textColor, fontWeight: '700', fontSize: scaleFontSize(14) }}>Select to Add</Text>
                       <TouchableOpacity onPress={() => setIsAdding(false)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
