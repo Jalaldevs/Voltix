@@ -43,7 +43,7 @@ const ms = (size) => moderateScale(size, MODERATE_FACTOR);
 
 
 // ─── SEARCH MODAL ─────────────────────────────────────────────────────────────
-const SearchModal = ({ visible, onClose }) => {
+const SearchModal = ({ visible, onClose, isNested = false }) => {
   const { colorScheme, language } = useNavigationContext();
   const { t } = useAppTranslation();
   const { isPremium, requirePremium, toggleMockPremium } = usePremium();
@@ -512,25 +512,18 @@ const SearchModal = ({ visible, onClose }) => {
   const currentResults = results;
   const currentRenderer = renderResult;
 
-  const showVerseHint = searchSource === 'quran' && /^\d/.test(searchValue) && currentResults.length === 0;
-
-  return (
-    <Modal
-      visible={visible}
-      animationType="slide"
-      transparent
-      onRequestClose={handleClose}
+  const content = (
+    <ThemedView
+      style={[
+        styles.searchOverlay,
+        isNested && styles.nestedOverlay,
+        {
+          backgroundColor: isDarkMode
+            ? 'rgba(0,0,0,0.6)'
+            : 'rgba(0,0,0,0.25)',
+        },
+      ]}
     >
-      <ThemedView
-        style={[
-          styles.searchOverlay,
-          {
-            backgroundColor: isDarkMode
-              ? 'rgba(0,0,0,0.6)'
-              : 'rgba(0,0,0,0.25)',
-          },
-        ]}
-      >
         <View style={[styles.searchSheet, { backgroundColor: theme.surface }]}>
 
           {/* Search input */}
@@ -852,8 +845,21 @@ const SearchModal = ({ visible, onClose }) => {
               </View>
             )}
           </View>
-        </View>
       </ThemedView>
+  );
+
+  if (isNested) {
+    return content;
+  }
+
+  return (
+    <Modal
+      visible={visible}
+      animationType="slide"
+      transparent
+      onRequestClose={handleClose}
+    >
+      {content}
     </Modal>
   );
 };
@@ -863,6 +869,7 @@ export default memo(SearchModal);
 const styles = StyleSheet.create({
   // ── Search (matching Header.jsx exactly) ──
   searchOverlay: { flex: 1, justifyContent: 'flex-end' },
+  nestedOverlay: { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 9999, elevation: 9999 },
   searchSheet: { borderTopLeftRadius: ms(24), borderTopRightRadius: ms(24), height: '85%' },
   searchHeader: {
     alignItems: 'center',

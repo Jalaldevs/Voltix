@@ -1118,8 +1118,7 @@ const ReferenceModal = ({
 
   // ── Render ─────────────────────────────────────────────────────────────────
   return (
-    <>
-      <Modal visible={visible} transparent={false} animationType="slide" statusBarTranslucent onRequestClose={onClose}>
+    <Modal visible={visible} transparent={false} animationType="slide" statusBarTranslucent onRequestClose={onClose}>
         <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} backgroundColor={headerBg} />
 
       <View style={[styles.container, { backgroundColor: bgColor }]}>
@@ -1132,14 +1131,9 @@ const ReferenceModal = ({
             <Ionicons name={iconName} size={ms(15)} color={accentColor} style={{ marginRight: ms(6) }} />
             <Text style={[styles.headerTitle, { color: textColor }]} numberOfLines={1}>{referenceText}</Text>
           </View>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <TouchableOpacity onPress={() => setSearchModalVisible(true)} style={styles.headerBtn} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
-              <Ionicons name="search-outline" size={ms(24)} color={accentColor} style={{ marginRight: ms(8) }} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={onBookmark} style={styles.headerBtn} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
-              <Ionicons name={isBookmarked ? 'bookmark' : 'bookmark-outline'} size={ms(23)} color={accentColor} />
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity onPress={onBookmark} style={styles.headerBtn} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+            <Ionicons name={isBookmarked ? 'bookmark' : 'bookmark-outline'} size={ms(23)} color={accentColor} />
+          </TouchableOpacity>
         </View>
 
         {/* Content */}
@@ -1192,6 +1186,15 @@ const ReferenceModal = ({
               <Ionicons name="language-outline" size={ms(26)} color={accentColor} />
             </TouchableOpacity>
           )}
+
+          {/* Search Button in lower bar */}
+          <TouchableOpacity
+            onPress={() => setSearchModalVisible(true)}
+            style={styles.actionBtn}
+            hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}
+          >
+            <Ionicons name="search-outline" size={ms(26)} color={accentColor} />
+          </TouchableOpacity>
 
           <TouchableOpacity onPress={onNext} disabled={!onNext} style={[styles.actionBtn, !onNext && styles.actionBtnDisabled]} hitSlop={{ top: 6, bottom: 6, left: 6, right: 6 }}>
             <Ionicons name="chevron-forward" size={ms(28)} color={!onNext ? mutedColor : accentColor} />
@@ -1314,14 +1317,15 @@ const ReferenceModal = ({
             t={t}
           />
         )}
+
+        {/* Search modal nested inside ReferenceModal so it displays on top */}
+        <SearchModal 
+          visible={searchModalVisible} 
+          onClose={() => setSearchModalVisible(false)} 
+          isNested={true}
+        />
       </View>
     </Modal>
-    
-    <SearchModal 
-      visible={searchModalVisible} 
-      onClose={() => setSearchModalVisible(false)} 
-    />
-    </>
   );
 };
 
