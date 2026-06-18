@@ -421,6 +421,7 @@ function TafseerContentSheet({
   const labelColor = isDarkMode ? '#60a5fa' : '#1976d2';
 
   const [isAdding, setIsAdding] = React.useState(false);
+  const flatListRef = React.useRef(null);
 
   // Reset adding state if sheet closes or tafseer loads
   React.useEffect(() => {
@@ -468,6 +469,25 @@ function TafseerContentSheet({
             )}
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: ms(8) }}>
+            {availableTafseers.length > 0 && (
+              <TouchableOpacity
+                onPress={() => {
+                  setIsAdding(true);
+                  setTimeout(() => {
+                    flatListRef.current?.scrollToEnd({ animated: true });
+                  }, 150);
+                }}
+                hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                style={{
+                  backgroundColor: isDarkMode ? 'rgba(96,165,250,0.15)' : 'rgba(25,118,210,0.1)',
+                  borderRadius: ms(20),
+                  padding: ms(4),
+                  marginRight: ms(4),
+                }}
+              >
+                <Ionicons name="add" size={ms(24)} color={accentColor} />
+              </TouchableOpacity>
+            )}
             <TouchableOpacity onPress={onClose} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
               <Ionicons name="close-outline" size={ms(30)} color={textColor} />
             </TouchableOpacity>
@@ -485,6 +505,7 @@ function TafseerContentSheet({
           </View>
         ) : (
           <FlatList
+            ref={flatListRef}
             data={(() => {
               const items = [];
               tafseerContents.forEach((tf) => {
