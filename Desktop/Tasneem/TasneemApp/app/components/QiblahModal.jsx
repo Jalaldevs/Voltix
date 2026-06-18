@@ -50,7 +50,17 @@ const QiblahCompassContent = ({ t, isDark }) => {
       {/* Compass Graphic */}
       <View style={[
         styles.compassGraphicContainer,
-        isDark && { backgroundColor: '#ffffff', borderRadius: 160, width: 320, height: 320 }
+        isDark && { 
+          backgroundColor: 'rgba(255, 255, 255, 0.92)', 
+          borderRadius: 155, 
+          width: 310, 
+          height: 310,
+          shadowColor: '#ffffff',
+          shadowOffset: { width: 0, height: 0 },
+          shadowOpacity: 0.25,
+          shadowRadius: 15,
+          elevation: 8,
+        }
       ]}>
         <Image
           source={compassImage}
