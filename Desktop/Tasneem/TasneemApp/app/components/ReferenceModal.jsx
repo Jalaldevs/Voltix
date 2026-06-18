@@ -474,124 +474,166 @@ function TafseerContentSheet({
           </View>
         </View>
 
-        {/* Stacked tafseer cards */}
-        <ScrollView
-          contentContainerStyle={{ padding: ms(14), paddingBottom: ms(24) }}
-          showsVerticalScrollIndicator={false}
-          removeClippedSubviews={Platform.OS === 'android'} // Helps with Android memory/lag
-          scrollEventThrottle={16}
-        >
-          {tafseerLoading ? (
-            <View style={{ minHeight: ms(200), justifyContent: 'center', alignItems: 'center' }}>
-              <ActivityIndicator size="large" color={accentColor} />
-            </View>
-          ) : tafseerContents.length === 0 ? (
-            <View style={{ minHeight: ms(120), justifyContent: 'center', alignItems: 'center' }}>
-              <Text style={{ color: mutedColor, fontSize: scaleFontSize(14) }}>No tafseer selected.</Text>
-            </View>
-          ) : (
-            <>
-              {tafseerContents.map(({ key, label, text }) => (
-                <View
-                  key={key}
-                  style={{
-                    backgroundColor: cardBg, borderColor: cardBorder, borderWidth: 1,
-                    borderRadius: ms(14), padding: ms(14), marginBottom: ms(12),
-                    elevation: 1, shadowColor: '#000', shadowOpacity: 0.04, shadowRadius: 4,
-                  }}
-                >
-                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: ms(8) }}>
-                    <Text style={{ color: labelColor, fontWeight: '700', fontSize: scaleFontSize(12.5), letterSpacing: 0.3, flex: 1, paddingRight: ms(8) }}>
-                      {label}
-                    </Text>
-                    <TouchableOpacity onPress={() => onRemoveTafseer(key)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
-                      <Ionicons name="close-circle-outline" size={ms(20)} color={mutedColor} />
-                    </TouchableOpacity>
-                  </View>
-                  <View style={{ marginTop: ms(4) }}>
-                    {text.split(/\n+/).map((paragraph, idx) => {
-                      if (!paragraph.trim()) return null;
-                      return (
-                        <Text key={idx} style={{ fontSize: scaleFontSize(15.5), lineHeight: scaleFontSize(26), color: textColor, marginBottom: ms(10), textAlign: 'justify' }}>
-                          {paragraph}
-                        </Text>
-                      );
-                    })}
-                  </View>
-                </View>
-              ))}
+        {/* Stacked tafseer cards using FlatList for performance */}
+        {tafseerLoading ? (
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <ActivityIndicator size="large" color={accentColor} />
+          </View>
+        ) : tafseerContents.length === 0 ? (
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text style={{ color: mutedColor, fontSize: scaleFontSize(14) }}>No tafseer selected.</Text>
+          </View>
+        ) : (
+          <FlatList
+            data={(() => {
+              const items = [];
+              tafseerContents.forEach((tf) => {
+                items.push({ type: 'header', key: `header-${tf.key}`, tfKey: tf.key, label: tf.label });
+                const paragraphs = tf.text.split(/\n+/).filter(p => p.trim());
+                paragraphs.forEach((p, idx) => {
+                  items.push({ type: 'paragraph', key: `para-${tf.key}-${idx}`, text: p });
+                });
+                items.push({ type: 'footer', key: `footer-${tf.key}` }); // For padding/border bottom
+              });
               
-              {!isAdding && availableTafseers.length > 0 && (
-                <TouchableOpacity
-                  onPress={() => setIsAdding(true)}
-                  style={{
-                    flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: ms(6),
-                    marginTop: ms(8), paddingVertical: ms(12),
-                    backgroundColor: isDarkMode ? 'rgba(96,165,250,0.1)' : 'rgba(25,118,210,0.06)',
-                    borderRadius: ms(12), borderWidth: 1, borderColor: isDarkMode ? 'rgba(96,165,250,0.2)' : 'rgba(25,118,210,0.15)',
-                    borderStyle: 'dashed'
-                  }}
-                >
-                  <Ionicons name="add-circle-outline" size={ms(20)} color={accentColor} />
-                  <Text style={{ color: accentColor, fontWeight: '600', fontSize: scaleFontSize(14) }}>Add Comparative Tafseer</Text>
-                </TouchableOpacity>
-              )}
+              if (!isAdding && availableTafseers.length > 0) {
+                items.push({ type: 'add_button', key: 'add_button' });
+              }
+              if (isAdding) {
+                items.push({ type: 'add_menu', key: 'add_menu' });
+              }
+              return items;
+            })()}
+            keyExtractor={(item) => item.key}
+            contentContainerStyle={{ padding: ms(14), paddingBottom: ms(24) }}
+            showsVerticalScrollIndicator={false}
+            removeClippedSubviews={true}
+            initialNumToRender={10}
+            maxToRenderPerBatch={10}
+            windowSize={5}
+            renderItem={({ item }) => {
+              if (item.type === 'header') {
+                return (
+                  <View style={{
+                    backgroundColor: cardBg, borderColor: cardBorder, borderWidth: 1, borderBottomWidth: 0,
+                    borderTopLeftRadius: ms(14), borderTopRightRadius: ms(14), padding: ms(14), paddingBottom: ms(4)
+                  }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                      <Text style={{ color: labelColor, fontWeight: '700', fontSize: scaleFontSize(12.5), letterSpacing: 0.3, flex: 1, paddingRight: ms(8) }}>
+                        {item.label}
+                      </Text>
+                      <TouchableOpacity onPress={() => onRemoveTafseer(item.tfKey)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+                        <Ionicons name="close-circle-outline" size={ms(20)} color={mutedColor} />
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                );
+              }
+              if (item.type === 'paragraph') {
+                const isArabic = /[\u0600-\u06FF]/.test(item.text);
+                return (
+                  <View style={{
+                    backgroundColor: cardBg, borderColor: cardBorder, borderLeftWidth: 1, borderRightWidth: 1,
+                    paddingHorizontal: ms(14)
+                  }}>
+                    <Text style={{ 
+                      fontSize: isArabic ? scaleFontSize(20) : scaleFontSize(15.5), 
+                      lineHeight: isArabic ? scaleFontSize(34) : scaleFontSize(26), 
+                      color: textColor, 
+                      marginBottom: ms(10), 
+                      textAlign: isArabic ? 'right' : 'left',
+                      fontFamily: isArabic ? 'UthmanicHafs' : undefined,
+                      writingDirection: isArabic ? 'rtl' : 'ltr'
+                    }}>
+                      {item.text}
+                    </Text>
+                  </View>
+                );
+              }
+              if (item.type === 'footer') {
+                return (
+                  <View style={{
+                    backgroundColor: cardBg, borderColor: cardBorder, borderWidth: 1, borderTopWidth: 0,
+                    borderBottomLeftRadius: ms(14), borderBottomRightRadius: ms(14), height: ms(10), marginBottom: ms(12)
+                  }} />
+                );
+              }
+              if (item.type === 'add_button') {
+                return (
+                  <TouchableOpacity
+                    onPress={() => setIsAdding(true)}
+                    style={{
+                      flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: ms(6),
+                      marginTop: ms(8), paddingVertical: ms(12),
+                      backgroundColor: isDarkMode ? 'rgba(96,165,250,0.1)' : 'rgba(25,118,210,0.06)',
+                      borderRadius: ms(12), borderWidth: 1, borderColor: isDarkMode ? 'rgba(96,165,250,0.2)' : 'rgba(25,118,210,0.15)',
+                      borderStyle: 'dashed'
+                    }}
+                  >
+                    <Ionicons name="add-circle-outline" size={ms(20)} color={accentColor} />
+                    <Text style={{ color: accentColor, fontWeight: '600', fontSize: scaleFontSize(14) }}>Add Comparative Tafseer</Text>
+                  </TouchableOpacity>
+                );
+              }
+              if (item.type === 'add_menu') {
+                return (
+                  <View style={{ marginTop: ms(8), backgroundColor: isDarkMode ? '#1e293b' : '#f8fafc', borderRadius: ms(14), padding: ms(12), borderWidth: 1, borderColor: cardBorder }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: ms(12) }}>
+                      <Text style={{ color: textColor, fontWeight: '700', fontSize: scaleFontSize(14) }}>Select to Add</Text>
+                      <TouchableOpacity onPress={() => setIsAdding(false)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+                        <Ionicons name="close-outline" size={ms(20)} color={mutedColor} />
+                      </TouchableOpacity>
+                    </View>
+                    <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: -ms(4) }}>
+                      {availableTafseers.map((tf) => {
+                        const isFree = FREE_TAFSEER_KEYS.has(tf.key);
+                        const isDisabled = !isFree && !isPremium;
+                        const matchesAppLang = isMatchingLang(tf.key, language);
+                        return (
+                          <TouchableOpacity
+                            key={tf.key}
+                            style={[
+                              sheetStyles.item,
+                              {
+                                width: '46%', margin: '2%', alignItems: 'center', justifyContent: 'center',
+                                height: ms(50), paddingVertical: 0,
+                                backgroundColor: isDarkMode ? '#374151' : '#f1f5f9',
+                              },
+                              matchesAppLang && { borderWidth: 1.5, borderColor: '#3b82f6' },
+                              isDisabled && { opacity: 0.45 },
+                            ]}
+                            onPress={() => {
+                              const proceed = () => {
+                                onAddTafseer(tf.key);
+                                setIsAdding(false);
+                              };
+                              if (!isFree && !isPremium) requirePremium(proceed);
+                              else proceed();
+                            }}
+                          >
+                            <View style={{ alignItems: 'center', width: '100%', paddingHorizontal: ms(4) }}>
+                              <Text style={[sheetStyles.itemLabel, { color: textColor, textAlign: 'center', fontSize: scaleFontSize(12), marginBottom: ms(2) }]} numberOfLines={1}>
+                                {tf.name}
+                              </Text>
+                              <Text style={{ color: isDarkMode ? '#9ca3af' : '#64748b', fontSize: scaleFontSize(10.5), textAlign: 'center', fontWeight: '600' }} numberOfLines={1}>
+                                {tf.langNative}
+                              </Text>
+                              {isDisabled && (
+                                <Ionicons name="lock-closed" size={ms(10)} color={isDarkMode ? '#94a3b8' : '#9ca3af'} style={{ position: 'absolute', top: 0, right: 0 }} />
+                              )}
+                            </View>
+                          </TouchableOpacity>
+                        );
+                      })}
+                    </View>
+                  </View>
+                );
+              }
+              return null;
+            }}
+          />
+        )}
 
-              {isAdding && (
-                <View style={{ marginTop: ms(8), backgroundColor: isDarkMode ? '#1e293b' : '#f8fafc', borderRadius: ms(14), padding: ms(12), borderWidth: 1, borderColor: cardBorder }}>
-                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: ms(12) }}>
-                    <Text style={{ color: textColor, fontWeight: '700', fontSize: scaleFontSize(14) }}>Select to Add</Text>
-                    <TouchableOpacity onPress={() => setIsAdding(false)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
-                      <Ionicons name="close-outline" size={ms(20)} color={mutedColor} />
-                    </TouchableOpacity>
-                  </View>
-                  <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginHorizontal: -ms(4) }}>
-                    {availableTafseers.map((tf) => {
-                      const isFree = FREE_TAFSEER_KEYS.has(tf.key);
-                      const isDisabled = !isFree && !isPremium;
-                      const matchesAppLang = isMatchingLang(tf.key, language);
-                      return (
-                        <TouchableOpacity
-                          key={tf.key}
-                          style={[
-                            sheetStyles.item,
-                            {
-                              width: '46%', margin: '2%', alignItems: 'center', justifyContent: 'center',
-                              height: ms(50), paddingVertical: 0,
-                              backgroundColor: isDarkMode ? '#374151' : '#f1f5f9',
-                            },
-                            matchesAppLang && { borderWidth: 1.5, borderColor: '#3b82f6' },
-                            isDisabled && { opacity: 0.45 },
-                          ]}
-                          onPress={() => {
-                            const proceed = () => {
-                              onAddTafseer(tf.key);
-                              setIsAdding(false);
-                            };
-                            if (!isFree && !isPremium) requirePremium(proceed);
-                            else proceed();
-                          }}
-                        >
-                          <View style={{ alignItems: 'center', width: '100%', paddingHorizontal: ms(4) }}>
-                            <Text style={[sheetStyles.itemLabel, { color: textColor, textAlign: 'center', fontSize: scaleFontSize(12), marginBottom: ms(2) }]} numberOfLines={1}>
-                              {tf.name}
-                            </Text>
-                            <Text style={{ color: isDarkMode ? '#9ca3af' : '#64748b', fontSize: scaleFontSize(10.5), textAlign: 'center', fontWeight: '600' }} numberOfLines={1}>
-                              {tf.langNative}
-                            </Text>
-                            {isDisabled && (
-                              <Ionicons name="lock-closed" size={ms(10)} color={isDarkMode ? '#94a3b8' : '#9ca3af'} style={{ position: 'absolute', top: 0, right: 0 }} />
-                            )}
-                          </View>
-                        </TouchableOpacity>
-                      );
-                    })}
-                  </View>
-                </View>
-              )}
-            </>
-          )}
-        </ScrollView>
 
         {/* Navigation row */}
         <View style={[tafseerSheetStyles.navRow, { borderTopColor: isDarkMode ? 'rgba(255,255,255,0.07)' : 'rgba(0,0,0,0.06)' }]}>
