@@ -485,7 +485,7 @@ function TafseerContentSheet({
                   alignItems: 'center',
                 }}
               >
-                <Ionicons name="layers-outline" size={ms(26)} color={accentColor} />
+                <Ionicons name="layers-outline" size={ms(30)} color={accentColor} />
               </TouchableOpacity>
             )}
             
