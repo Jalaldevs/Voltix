@@ -420,13 +420,14 @@ function TafseerContentSheet({
   const cardBorder = isDarkMode ? 'rgba(96,165,250,0.14)' : 'rgba(25,118,210,0.1)';
   const labelColor = isDarkMode ? '#60a5fa' : '#1976d2';
 
-  const [isAdding, setIsAdding] = React.useState(false);
+  const [addingPosition, setAddingPosition] = React.useState(null); // 'top', 'bottom', or null
   const flatListRef = React.useRef(null);
 
-  // Reset adding state if sheet closes or tafseer loads
+  // Reset adding state if sheet closes, or force it if no tafseers
   React.useEffect(() => {
-    if (!visible) setIsAdding(false);
-  }, [visible]);
+    if (!visible) setAddingPosition(null);
+    else if (tafseerContents.length === 0 && !tafseerLoading) setAddingPosition('top');
+  }, [visible, tafseerContents.length, tafseerLoading]);
 
   const availableTafseers = React.useMemo(() => {
     const currentKeys = new Set(tafseerContents.map(tc => tc.key));
@@ -472,7 +473,7 @@ function TafseerContentSheet({
             {availableTafseers.length > 0 && (
               <TouchableOpacity
                 onPress={() => {
-                  setIsAdding(true);
+                  setAddingPosition('top');
                   setTimeout(() => {
                     flatListRef.current?.scrollToOffset({ offset: 0, animated: true });
                   }, 150);
@@ -499,18 +500,14 @@ function TafseerContentSheet({
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
             <ActivityIndicator size="large" color={accentColor} />
           </View>
-        ) : tafseerContents.length === 0 ? (
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text style={{ color: mutedColor, fontSize: scaleFontSize(14) }}>No tafseer selected.</Text>
-          </View>
         ) : (
           <FlatList
             ref={flatListRef}
             data={(() => {
               const items = [];
               
-              if (isAdding) {
-                items.push({ type: 'add_menu', key: 'add_menu' });
+              if (addingPosition === 'top') {
+                items.push({ type: 'add_menu', key: 'add_menu_top' });
               }
 
               tafseerContents.forEach((tf) => {
@@ -522,10 +519,14 @@ function TafseerContentSheet({
                 items.push({ type: 'footer', key: `footer-${tf.key}` }); // For padding/border bottom
               });
               
-              if (!isAdding && availableTafseers.length > 0) {
+              if (addingPosition !== 'bottom' && availableTafseers.length > 0) {
                 items.push({ type: 'add_button', key: 'add_button' });
               }
               
+              if (addingPosition === 'bottom') {
+                items.push({ type: 'add_menu', key: 'add_menu_bottom' });
+              }
+
               return items;
             })()}
             keyExtractor={(item) => item.key}
@@ -585,7 +586,12 @@ function TafseerContentSheet({
               if (item.type === 'add_button') {
                 return (
                   <TouchableOpacity
-                    onPress={() => setIsAdding(true)}
+                    onPress={() => {
+                      setAddingPosition('bottom');
+                      setTimeout(() => {
+                        flatListRef.current?.scrollToEnd({ animated: true });
+                      }, 150);
+                    }}
                     style={{
                       flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: ms(6),
                       marginTop: ms(8), paddingVertical: ms(12),
@@ -604,7 +610,7 @@ function TafseerContentSheet({
                   <View style={{ marginBottom: ms(12), backgroundColor: isDarkMode ? '#1e293b' : '#f8fafc', borderRadius: ms(14), padding: ms(12), borderWidth: 1, borderColor: cardBorder }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: ms(12) }}>
                       <Text style={{ color: textColor, fontWeight: '700', fontSize: scaleFontSize(14) }}>Select to Add</Text>
-                      <TouchableOpacity onPress={() => setIsAdding(false)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+                      <TouchableOpacity onPress={() => setAddingPosition(null)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
                         <Ionicons name="close-outline" size={ms(20)} color={mutedColor} />
                       </TouchableOpacity>
                     </View>
@@ -629,7 +635,7 @@ function TafseerContentSheet({
                             onPress={() => {
                               const proceed = () => {
                                 onAddTafseer(tf.key);
-                                setIsAdding(false);
+                                setAddingPosition(null);
                               };
                               if (!isFree && !isPremium) requirePremium(proceed);
                               else proceed();
@@ -844,10 +850,8 @@ const ReferenceModal = ({
     setActiveTafseerAyah(ayah);
     if (selectedTafseerKeys.length > 0) {
       loadTafseers(selectedTafseerKeys, quranSurahId, ayah.id);
-      setTafseerContentVisible(true);
-    } else {
-      setTafseerPickerVisible(true);
     }
+    setTafseerContentVisible(true);
   }, [selectedTafseerKeys, quranSurahId, loadTafseers]);
 
   const getAyahList = useCallback(() =>
@@ -1317,36 +1321,7 @@ const ReferenceModal = ({
           />
         )}
 
-        {/* Tafseer picker sheet */}
-        {isQuranMode && (
-          <TafseerPickerSheet
-            visible={tafseerPickerVisible}
-            onClose={() => setTafseerPickerVisible(false)}
-            onSelect={(newKey) => {
-              setTafseerPickerVisible(false);
-              if (!selectedTafseerKeys.includes(newKey)) {
-                const newKeys = [...selectedTafseerKeys, newKey];
-                setSelectedTafseerKeys(newKeys);
-                AsyncStorage.setItem('@reference_tafseer_keys', JSON.stringify(newKeys)).catch(()=>{});
-                if (activeTafseerAyah) {
-                  loadTafseers(newKeys, quranSurahId, activeTafseerAyah.id);
-                  setTafseerContentVisible(true);
-                }
-              } else {
-                // If it's already selected, just show the content
-                setTafseerContentVisible(true);
-              }
-            }}
-            isDarkMode={isDarkMode}
-            accentColor={accentColor}
-            textColor={textColor}
-            mutedColor={mutedColor}
-            isPremium={isPremium}
-            requirePremium={requirePremium}
-            t={t}
-            language={language}
-          />
-        )}
+
 
         {/* Tafseer content sheet */}
         {isQuranMode && (
@@ -1368,8 +1343,7 @@ const ReferenceModal = ({
               setSelectedTafseerKeys(newKeys);
               AsyncStorage.setItem('@reference_tafseer_keys', JSON.stringify(newKeys)).catch(()=>{});
               if (newKeys.length === 0) {
-                setTafseerContentVisible(false);
-                setTafseerPickerVisible(true); // fall back to picker
+                // Just clear out the data, the sheet handles showing the 'top' adding menu when empty
               } else if (activeTafseerAyah) {
                 loadTafseers(newKeys, quranSurahId, activeTafseerAyah.id);
               }
