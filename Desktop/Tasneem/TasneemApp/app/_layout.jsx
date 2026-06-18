@@ -48,10 +48,12 @@ const MainAppWrapper = ({ children, checkingOnboarding }) => {
   const isReady = !checkingOnboarding && !premiumChecking && themeLoaded && languageLoaded;
 
   useEffect(() => {
+    console.log(`[MainAppWrapper] State changed: checkingOnboarding=${checkingOnboarding}, premiumChecking=${premiumChecking}, themeLoaded=${themeLoaded}, languageLoaded=${languageLoaded} => isReady=${isReady}`);
     if (isReady) {
+      console.log('[MainAppWrapper] App is fully ready! Hiding Native Splash Screen now.');
       SplashScreen.hideAsync().catch(() => {});
     }
-  }, [isReady]);
+  }, [isReady, checkingOnboarding, premiumChecking, themeLoaded, languageLoaded]);
 
   if (!isReady) {
     return null;

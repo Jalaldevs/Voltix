@@ -298,9 +298,11 @@ const SearchModal = ({ visible, onClose }) => {
       if (!isPremium) {
         if (isAndroid) {
           if (isPremiumLockedAndroid) {
+            console.log('[SearchModal] performSearch: Android user trying to search restricted Quran term. Lock applied.');
             limitReached = true;
             remaining = 0;
           } else {
+            console.log('[SearchModal] performSearch: Android user performing free search (Sunnah/General). Limits ignored.');
             limitReached = false;
             remaining = Infinity;
           }
@@ -308,7 +310,10 @@ const SearchModal = ({ visible, onClose }) => {
           const currentCount = await getSearchCount();
           remaining = Math.max(0, DAILY_SEARCH_LIMIT - currentCount);
           limitReached = currentCount >= DAILY_SEARCH_LIMIT;
+          console.log(`[SearchModal] performSearch: iOS user search evaluated. currentCount: ${currentCount}, limitReached: ${limitReached}`);
         }
+      } else {
+        console.log('[SearchModal] performSearch: Premium User. Limits ignored.');
       }
 
       setRemainingSearches(remaining);
@@ -400,12 +405,16 @@ const SearchModal = ({ visible, onClose }) => {
     // Free user under limit
     if (!isPremium) {
       if (Platform.OS !== 'android') {
+        console.log('[SearchModal] Quran Result Pressed: iOS User under limit. Incrementing count.');
         await incrementSearchCount();
 
         // Update local state proactively so UI updates on next search
         const newCount = (await getSearchCount()); // it's already incremented, so this gets the latest
+        console.log(`[SearchModal] New count: ${newCount}, Remaining: ${Math.max(0, DAILY_SEARCH_LIMIT - newCount)}`);
         setRemainingSearches(Math.max(0, DAILY_SEARCH_LIMIT - newCount));
         setSearchLimitReached(newCount >= DAILY_SEARCH_LIMIT);
+      } else {
+        console.log('[SearchModal] Quran Result Pressed: Android User. Allowed search (e.g. Surah). Count NOT incremented.');
       }
     }
 
@@ -443,11 +452,15 @@ const SearchModal = ({ visible, onClose }) => {
     // Free user under limit
     if (!isPremium) {
       if (Platform.OS !== 'android') {
+        console.log('[SearchModal] Sunnah Result Pressed: iOS User under limit. Incrementing count.');
         await incrementSearchCount();
 
         const newCount = (await getSearchCount());
+        console.log(`[SearchModal] New count: ${newCount}, Remaining: ${Math.max(0, DAILY_SEARCH_LIMIT - newCount)}`);
         setRemainingSearches(Math.max(0, DAILY_SEARCH_LIMIT - newCount));
         setSearchLimitReached(newCount >= DAILY_SEARCH_LIMIT);
+      } else {
+        console.log('[SearchModal] Sunnah Result Pressed: Android User. Sunnah searches are free. Count NOT incremented.');
       }
     }
 

@@ -86,8 +86,10 @@ export default function CalculationMethodSelection() {
   const handleContinue = async () => {
     setSubmitting(true);
     try {
+      console.log(`[CalculationMethod] Saving calculation method: ${selectedMethod}`);
       await AsyncStorage.setItem(CALCULATION_METHOD_KEY, selectedMethod);
       
+      console.log('[CalculationMethod] Showing 3-second loading screen before navigating to Home...');
       setShowLoadingScreen(true);
       Animated.timing(loadingProgress, {
         toValue: 1,
@@ -96,9 +98,11 @@ export default function CalculationMethodSelection() {
       }).start();
 
       setTimeout(() => {
+        console.log('[CalculationMethod] 3 seconds passed. Navigating to /main/Home.');
         router.replace('/main/Home');
       }, 3000);
     } catch (error) {
+      console.error('[CalculationMethod] Error saving method:', error);
       Alert.alert(t('calculationMethod.errorTitle'), t('calculationMethod.saveErrorMessage'));
       setSubmitting(false);
     }

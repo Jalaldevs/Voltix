@@ -1143,7 +1143,11 @@ const Header = ({
       return;
     }
     if (option.isThemeToggle) {
-      requirePremium(() => toggleTheme());
+      console.log('[Header] Theme Toggle pressed. Checking premium status...');
+      requirePremium(() => {
+        console.log('[Header] Premium verified. Toggling theme...');
+        toggleTheme();
+      });
       return;
     }
     if (option.isTestAthan) {
