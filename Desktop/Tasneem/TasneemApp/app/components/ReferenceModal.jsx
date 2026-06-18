@@ -519,10 +519,6 @@ function TafseerContentSheet({
                 items.push({ type: 'footer', key: `footer-${tf.key}` }); // For padding/border bottom
               });
               
-              if (addingPosition !== 'bottom' && availableTafseers.length > 0) {
-                items.push({ type: 'add_button', key: 'add_button' });
-              }
-              
               if (addingPosition === 'bottom') {
                 items.push({ type: 'add_menu', key: 'add_menu_bottom' });
               }
@@ -583,28 +579,7 @@ function TafseerContentSheet({
                   }} />
                 );
               }
-              if (item.type === 'add_button') {
-                return (
-                  <TouchableOpacity
-                    onPress={() => {
-                      setAddingPosition('bottom');
-                      setTimeout(() => {
-                        flatListRef.current?.scrollToEnd({ animated: true });
-                      }, 150);
-                    }}
-                    style={{
-                      flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: ms(6),
-                      marginTop: ms(8), paddingVertical: ms(12),
-                      backgroundColor: isDarkMode ? 'rgba(96,165,250,0.1)' : 'rgba(25,118,210,0.06)',
-                      borderRadius: ms(12), borderWidth: 1, borderColor: isDarkMode ? 'rgba(96,165,250,0.2)' : 'rgba(25,118,210,0.15)',
-                      borderStyle: 'dashed'
-                    }}
-                  >
-                    <Ionicons name="add-circle-outline" size={ms(20)} color={accentColor} />
-                    <Text style={{ color: accentColor, fontWeight: '600', fontSize: scaleFontSize(14) }}>Add Comparative Tafseer</Text>
-                  </TouchableOpacity>
-                );
-              }
+
               if (item.type === 'add_menu') {
                 return (
                   <View style={{ marginBottom: ms(12), backgroundColor: isDarkMode ? '#1e293b' : '#f8fafc', borderRadius: ms(14), padding: ms(12), borderWidth: 1, borderColor: cardBorder }}>
