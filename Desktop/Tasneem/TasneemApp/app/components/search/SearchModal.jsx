@@ -845,6 +845,7 @@ const SearchModal = ({ visible, onClose, isNested = false }) => {
               </View>
             )}
           </View>
+        </View>
       </ThemedView>
   );
 
