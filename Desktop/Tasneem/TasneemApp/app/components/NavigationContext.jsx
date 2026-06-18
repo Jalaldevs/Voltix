@@ -54,6 +54,10 @@ export const NavigationProvider = ({ children }) => {
 
       setLanguageState(nextLanguage);
       await AsyncStorage.setItem('appLanguage', nextLanguage);
+      await AsyncStorage.multiRemove([
+        '@reference_sunnah_lang',
+        '@quran:selectedTranslation'
+      ]);
     } catch (error) {
       console.log('Error saving language:', error);
     }

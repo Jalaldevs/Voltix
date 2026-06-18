@@ -657,10 +657,13 @@ const Header = ({
       AsyncStorage.getItem('@quran:selectedTranslation').then(val => {
          if (val && val !== 'none') {
            setQuranCurrentTranslationLang(val);
+         } else {
+           setQuranCurrentTranslationLang(null);
          }
       }).catch(()=>{});
       AsyncStorage.getItem('@reference_sunnah_lang').then(val => {
          if (val) setSunnahCurrentTranslationLang(val);
+         else setSunnahCurrentTranslationLang(null);
       }).catch(()=>{});
     }
   }, [bookmarkModal, loadBookmarks]);
