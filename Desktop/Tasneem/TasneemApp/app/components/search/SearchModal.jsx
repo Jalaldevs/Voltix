@@ -512,6 +512,8 @@ const SearchModal = ({ visible, onClose, isNested = false }) => {
   const currentResults = results;
   const currentRenderer = renderResult;
 
+  const showVerseHint = searchSource === 'quran' && /^\d/.test(searchValue) && currentResults.length === 0;
+
   const content = (
     <ThemedView
       style={[
