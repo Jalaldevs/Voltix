@@ -513,7 +513,7 @@ function TafseerContentSheet({
                   justifyContent: 'center',
                 }}
               >
-                <Text style={{ color: accentColor, fontSize: ms(24), fontWeight: '800', lineHeight: ms(26), includeFontPadding: false }}>+</Text>
+                <Ionicons name="add" size={ms(28)} color={accentColor} />
               </TouchableOpacity>
             )}
             <TouchableOpacity onPress={onClose} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
@@ -634,7 +634,13 @@ function TafseerContentSheet({
                   <View style={{ marginBottom: ms(12), backgroundColor: isDarkMode ? '#1e293b' : '#f8fafc', borderRadius: ms(14), padding: ms(12), borderWidth: 1, borderColor: cardBorder }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: ms(12) }}>
                       <Text style={{ color: textColor, fontWeight: '700', fontSize: scaleFontSize(14) }}>Select to Add</Text>
-                      <TouchableOpacity onPress={() => setAddingPosition(null)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+                      <TouchableOpacity
+                        onPress={() => {
+                          setAddingPosition(null);
+                          setCollapsedTafseers(new Set()); // Unwrap everything if they cancel
+                        }}
+                        hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                      >
                         <Ionicons name="close-outline" size={ms(20)} color={mutedColor} />
                       </TouchableOpacity>
                     </View>
