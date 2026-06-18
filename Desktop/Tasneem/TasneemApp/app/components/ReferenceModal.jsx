@@ -431,7 +431,10 @@ function TafseerContentSheet({
       setAddingPosition(null);
       setIsManaging(false);
     }
-    else if (tafseerContents.length === 0 && !tafseerLoading) setAddingPosition('top');
+    else if (tafseerContents.length === 0 && !tafseerLoading) {
+      setAddingPosition('top');
+      setIsManaging(false);
+    }
   }, [visible, tafseerContents.length, tafseerLoading]);
 
   const availableTafseers = React.useMemo(() => {
@@ -510,7 +513,7 @@ function TafseerContentSheet({
                   justifyContent: 'center',
                 }}
               >
-                <Ionicons name="add" size={ms(24)} color={accentColor} />
+                <Text style={{ color: accentColor, fontSize: ms(24), fontWeight: '800', lineHeight: ms(26), includeFontPadding: false }}>+</Text>
               </TouchableOpacity>
             )}
             <TouchableOpacity onPress={onClose} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
