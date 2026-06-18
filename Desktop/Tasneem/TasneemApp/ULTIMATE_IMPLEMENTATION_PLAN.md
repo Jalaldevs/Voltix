@@ -17,6 +17,9 @@ We will update the `termsModal` section in `appTranslations.js` for all **32 sup
 **`legalUseBody`**
 *English Reference:* "You agree not to misuse, exploit, reverse-engineer, or alter the source code of the app to bypass payment walls or limitations. Attempting to cheat the system is strictly prohibited and is considered a personal offense, a breach of trust, and a violation of these terms."
 
+**`platformDifferencesBody` (NEW)**
+*English Reference:* "Please note that premium features and limitations may vary between Android and iOS (iPhone) devices. For example, Android users receive unlimited general searches while advanced Quran reference searches are exclusive to Premium. Conversely, iOS users have a global daily limit for all searches that Premium removes entirely. These differences exist due to the distinct technical architectures of each operating system, and the development team has intentionally designed the app this way to provide the best possible experience on each platform."
+
 ---
 
 ## Mini Plan 2: Expo Secure Store Implementation (iOS Anti-Cheat)
@@ -80,6 +83,6 @@ We will reintroduce Dark Mode as a core Premium Feature, solving the previous te
 ## User Review Required
 
 > [!IMPORTANT]
-> The master plan now incorporates all FIVE upgrades. The Dark Mode fixes are highly effective and standard in React Native (holding the splash screen until AsyncStorage loads is the exact correct way to fix the flicker).
+> The master plan now incorporates the new `platformDifferencesBody` explanation in the Terms translations. 
 > 
 > **Are you ready for me to start executing this 5-part plan?**
