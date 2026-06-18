@@ -1342,9 +1342,7 @@ const ReferenceModal = ({
               const newKeys = selectedTafseerKeys.filter(k => k !== keyToRemove);
               setSelectedTafseerKeys(newKeys);
               AsyncStorage.setItem('@reference_tafseer_keys', JSON.stringify(newKeys)).catch(()=>{});
-              if (newKeys.length === 0) {
-                // Just clear out the data, the sheet handles showing the 'top' adding menu when empty
-              } else if (activeTafseerAyah) {
+              if (activeTafseerAyah) {
                 loadTafseers(newKeys, quranSurahId, activeTafseerAyah.id);
               }
             }}
