@@ -45,8 +45,8 @@ import SearchModal from './search/SearchModal';
 import RemindersModal from './Remindersmodal';
 import { getActiveReminderIds, getTodayKey, loadCompletedReminderIds } from '../utils/remindersUtils';
 import useSunnahIndex from '../hooks/useSunnahIndex';
-import { quranArabicMap } from '../constants/quranArabicMap';
 import { quranTranslationMap } from '../constants/quranTranslationMap';
+import { readOfflineSunnahEdition } from '../utils/offlineContent';
 import { useFonts } from 'expo-font';
 
 const MODERATE_FACTOR = 0.35;
@@ -55,10 +55,52 @@ const ms = (size) => moderateScale(size, MODERATE_FACTOR);
 const headerLogoDark = require('../../assets/images/headerLogo.png');
 const headerLogoLight = require('../../assets/images/headerLogoLightMode.png');
 
+const APP_LANG_TO_SUNNAH = {
+  english: 'eng',
+  french: 'fra',
+  indonesian: 'ind',
+  bengali: 'ben',
+  turkish: 'tur',
+  russian: 'rus',
+  tamil: 'tam',
+};
 
+const DynamicSunnahTranslation = ({ item, selectedLang, defaultSubtitle, textStyle }) => {
+  const [translation, setTranslation] = useState(null);
 
+  useEffect(() => {
+    let active = true;
+    if (!selectedLang || selectedLang === 'ara' || !item.sunnah?.book || !item.sunnah?.hadithNumber) {
+      return;
+    }
+    const fetchTrans = async () => {
+       try {
+         const editionKey = `${selectedLang}-${item.sunnah.book}`;
+         const data = await readOfflineSunnahEdition(editionKey);
+         if (active && data?.hadiths) {
+           const target = parseFloat(item.sunnah.hadithNumber);
+           const found = data.hadiths.find((h) => parseFloat(h.hadithnumber) === target);
+           if (found?.text) {
+             const cleanText = found.text.replace(/<br\s*\/?>/gi, '\n')
+               .replace(/<\/p>/gi, '\n')
+               .replace(/<p>/gi, '')
+               .replace(/&nbsp;/gi, ' ')
+               .replace(/ـ/g, '')
+               .replace(/\s+/g, ' ')
+               .trim();
+             setTranslation(cleanText);
+           }
+         }
+       } catch(e) {}
+    };
+    fetchTrans();
+    return () => { active = false; };
+  }, [selectedLang, item]);
 
-
+  const display = translation || defaultSubtitle || '';
+  if (!display) return null;
+  return <Text style={textStyle}>{display}</Text>;
+};
 // ─── FUZZY MATCHING ───────────────────────────────────────────────────────────
 const levenshtein = (a, b) => {
   const m = a.length;
@@ -400,6 +442,7 @@ const Header = ({
   // premiumPaywallVisible now managed by usePremium() hook
   const [shopifyModalVisible, setShopifyModalVisible] = useState(false);
   const [quranCurrentTranslationLang, setQuranCurrentTranslationLang] = useState(null);
+  const [sunnahCurrentTranslationLang, setSunnahCurrentTranslationLang] = useState(null);
   const [remindersModal, setRemindersModal] = useState(false);
   const [preferencesModalVisible, setPreferencesModalVisible] = useState(false);
   const [pendingRemindersCount, setPendingRemindersCount] = useState(0);
@@ -613,6 +656,9 @@ const Header = ({
          if (val && val !== 'none') {
            setQuranCurrentTranslationLang(val);
          }
+      }).catch(()=>{});
+      AsyncStorage.getItem('@reference_sunnah_lang').then(val => {
+         if (val) setSunnahCurrentTranslationLang(val);
       }).catch(()=>{});
     }
   }, [bookmarkModal, loadBookmarks]);
@@ -1055,7 +1101,7 @@ const Header = ({
     const dynamicQuranTranslation = isQuran ? getDynamicQuranTranslation(item.quran?.surahId, item.quran?.ayahId) : null;
     const subtitle = isQuran
       ? dynamicQuranTranslation || item.quran?.translation || ''
-      : item.sunnah?.translation || '';
+      : '';
 
     const isExpanded = expandedBookmarks.has(item.id);
     const arabicText = isExpanded ? getBookmarkArabicText(item) : '';
@@ -1151,10 +1197,19 @@ const Header = ({
                   {arabicText}
                 </Text>
               )}
-              {!!subtitle && (
-                <Text style={{ color: theme.text, fontSize: scaleFontSize(14), lineHeight: scaleFontSize(22), marginTop: !!arabicText ? ms(12) : 0, textAlign: 'left' }}>
-                  {subtitle}
-                </Text>
+              {isQuran ? (
+                !!subtitle && (
+                  <Text style={{ color: theme.text, fontSize: scaleFontSize(14), lineHeight: scaleFontSize(22), marginTop: !!arabicText ? ms(12) : 0, textAlign: 'left' }}>
+                    {subtitle}
+                  </Text>
+                )
+              ) : (
+                <DynamicSunnahTranslation
+                  item={item}
+                  selectedLang={sunnahCurrentTranslationLang || APP_LANG_TO_SUNNAH[language?.toLowerCase()]}
+                  defaultSubtitle=""
+                  textStyle={{ color: theme.text, fontSize: scaleFontSize(14), lineHeight: scaleFontSize(22), marginTop: !!arabicText ? ms(12) : 0, textAlign: 'left' }}
+                />
               )}
             </View>
           )}
