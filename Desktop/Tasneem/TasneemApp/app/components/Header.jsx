@@ -1698,6 +1698,12 @@ const Header = ({
                     keyExtractor={(item) => item.id}
                     renderItem={renderBookmarkItem}
                     showsVerticalScrollIndicator={false}
+                    extraData={{
+                      sunnah: sunnahCurrentTranslationLang,
+                      quran: quranCurrentTranslationLang,
+                      expanded: expandedBookmarks,
+                      fonts: fontsLoaded
+                    }}
                   />
                 )}
               </View>
