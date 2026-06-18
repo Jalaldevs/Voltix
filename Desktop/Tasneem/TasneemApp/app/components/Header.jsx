@@ -526,7 +526,7 @@ const Header = ({
     { id: 'sleeping', title: t('settings.options.sleeping.title'), icon: 'bed', color: '#3b82f6', iconLibrary: Ionicons, isModal: true, athkarType: 'sleeping' },
     { id: 'tasbeeh', title: t('settings.options.tasbeeh.title'), icon: 'arrow-redo', color: '#06d6a0', iconLibrary: Ionicons, isModal: true, modalType: 'tasbeeh' },
     { id: 'asmaUlHusna', title: 'أسماء الله الحسنى', icon: 'albums', color: '#38BDF8', iconLibrary: Ionicons, isModal: true, modalType: 'asmaUlHusna' },
-    // { id: 'themeToggle', title: isDarkMode ? (t('settings.options.lightMode.title') || 'Light Mode') : (t('settings.options.darkMode.title') || 'Dark Mode'), icon: isDarkMode ? 'sunny' : 'moon', color: isDarkMode ? '#f59e0b' : '#3b82f6', iconLibrary: Ionicons, isThemeToggle: true },
+    { id: 'themeToggle', title: isDarkMode ? (t('settings.options.lightMode.title') || 'Light Mode') : (t('settings.options.darkMode.title') || 'Dark Mode'), icon: isDarkMode ? 'sunny' : 'moon', color: isDarkMode ? '#f59e0b' : '#3b82f6', iconLibrary: Ionicons, isThemeToggle: true },
     { id: 'message', title: t('message.title'), icon: 'mail', color: '#6366f1', iconLibrary: Ionicons, isModal: true, modalType: 'message' },
     { id: 'appSettings', title: t('home.openSettings'), icon: 'settings-sharp', color: '#64748b', iconLibrary: Ionicons, isModal: true, modalType: 'appSettings' },
     { id: 'credits', title: t('settings.options.credits.title'), icon: 'people', color: '#f77f00', iconLibrary: Ionicons, isModal: true, modalType: 'credits' },

@@ -48,7 +48,10 @@ const QiblahCompassContent = ({ t, isDark }) => {
       </View>
 
       {/* Compass Graphic */}
-      <View style={styles.compassGraphicContainer}>
+      <View style={[
+        styles.compassGraphicContainer,
+        isDark && { backgroundColor: '#ffffff', borderRadius: 160, width: 320, height: 320 }
+      ]}>
         <Image
           source={compassImage}
           style={[
@@ -87,7 +90,7 @@ const QiblahModal = ({ visible, onClose, theme, colorScheme }) => {
     }
   }, [visible]);
 
-  const isDark = false; // Always light mode
+  const isDark = colorScheme === 'dark';
   const bgColor = isDark ? '#0f172a' : '#ffffff';
   const qiblaTitle = isDark ? '#f1f5f9' : '#2c3e50';
   const closeBtnBg = isDark ? 'rgba(255,255,255,0.1)' : '#ecf0f1';

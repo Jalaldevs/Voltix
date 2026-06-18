@@ -42,18 +42,22 @@ if (Platform.OS === 'android') {
 // ─── Splash controller ────────────────────────────────────────────────────────
 // Sits inside PremiumProvider so it can read premiumChecking.
 // Hides the native splash only when BOTH onboarding check AND IAP check are done.
-const SplashController = ({ checkingOnboarding }) => {
+const MainAppWrapper = ({ children, checkingOnboarding }) => {
   const { premiumChecking } = usePremium();
   const { themeLoaded, languageLoaded } = useNavigationContext();
+  const isReady = !checkingOnboarding && !premiumChecking && themeLoaded && languageLoaded;
 
   useEffect(() => {
-    if (checkingOnboarding || premiumChecking || !themeLoaded || !languageLoaded) return;
-    SplashScreen.hideAsync().catch(() => {
-      // ignored
-    });
-  }, [checkingOnboarding, premiumChecking, themeLoaded, languageLoaded]);
+    if (isReady) {
+      SplashScreen.hideAsync().catch(() => {});
+    }
+  }, [isReady]);
 
-  return null;
+  if (!isReady) {
+    return null;
+  }
+
+  return children;
 };
 
 // ─── Root layout ──────────────────────────────────────────────────────────────
@@ -138,9 +142,10 @@ export default function RootLayout() {
       <NavigationProvider>
         <SafeAreaProvider>
           <PremiumProvider>
-            {/* Controls splash — waits for both onboarding + IAP checks */}
-            <SplashController checkingOnboarding={checkingOnboarding} />
-            <Slot />
+            {/* Controls splash and prevents flicker by waiting for theme load */}
+            <MainAppWrapper checkingOnboarding={checkingOnboarding}>
+              <Slot />
+            </MainAppWrapper>
           </PremiumProvider>
         </SafeAreaProvider>
       </NavigationProvider>

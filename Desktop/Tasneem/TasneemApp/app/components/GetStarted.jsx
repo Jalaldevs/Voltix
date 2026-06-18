@@ -161,7 +161,7 @@ const PremiumPaywall = ({ onClose, onSubscribe, productPrice = '$3.99', onRestor
   };
 
   const FEATURES = [
-    { icon: 'magnify', label: t('premium.features.searchTitle') },
+    { icon: 'magnify', label: Platform.OS === 'android' ? (t('premium.features.androidSearchTitle') || t('premium.features.searchTitle')) : t('premium.features.searchTitle') },
     { icon: 'file-outline', label: t('premium.features.bookmarksTitle') },
   ];
 
@@ -366,7 +366,7 @@ const GetStarted = ({ onClose, onPressGetStarted, onRestore }) => {
   const [premiumPaywallVisible, setPremiumPaywallVisible] = useState(false);
 
   const FEATURES = [
-    { icon: 'magnify', label: t('premium.features.searchTitle') },
+    { icon: 'magnify', label: Platform.OS === 'android' ? (t('premium.features.androidSearchTitle') || t('premium.features.searchTitle')) : t('premium.features.searchTitle') },
     { icon: 'file-outline', label: t('premium.features.bookmarksTitle') },
   ];
 

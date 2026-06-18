@@ -42,6 +42,8 @@ export default function CalculationMethodSelection() {
   const [detectedMethod, setDetectedMethod] = useState('MuslimWorldLeague');
   const [selectedMethod, setSelectedMethod] = useState('MuslimWorldLeague');
   const [userLocation, setUserLocation] = useState('');
+  const [showLoadingScreen, setShowLoadingScreen] = useState(false);
+  const loadingProgress = useRef(new Animated.Value(0)).current;
 
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(20)).current;
@@ -85,10 +87,19 @@ export default function CalculationMethodSelection() {
     setSubmitting(true);
     try {
       await AsyncStorage.setItem(CALCULATION_METHOD_KEY, selectedMethod);
-      router.replace('/main/Home');
+      
+      setShowLoadingScreen(true);
+      Animated.timing(loadingProgress, {
+        toValue: 1,
+        duration: 3000,
+        useNativeDriver: false,
+      }).start();
+
+      setTimeout(() => {
+        router.replace('/main/Home');
+      }, 3000);
     } catch (error) {
       Alert.alert(t('calculationMethod.errorTitle'), t('calculationMethod.saveErrorMessage'));
-    } finally {
       setSubmitting(false);
     }
   };
@@ -144,6 +155,34 @@ export default function CalculationMethodSelection() {
     return (
       <View style={styles.centerMode}>
         <ActivityIndicator size="large" color="#1b83de" />
+      </View>
+    );
+  }
+
+  if (showLoadingScreen) {
+    return (
+      <View style={[styles.root, { justifyContent: 'center', alignItems: 'center', backgroundColor: '#F0F7FF' }]}>
+        <StatusBar barStyle="dark-content" />
+        <LinearGradient colors={['#F0F7FF', '#FFFFFF']} style={StyleSheet.absoluteFill} />
+        
+        <View style={{ width: '80%', alignItems: 'center' }}>
+          <Text style={{ fontSize: ms(16), fontWeight: '700', color: '#1b83de', marginBottom: ms(20) }}>
+            {t('common.loading') || 'Setting up your experience...'}
+          </Text>
+          
+          <View style={{ width: '100%', height: ms(6), backgroundColor: 'rgba(27,131,222,0.2)', borderRadius: ms(3), overflow: 'hidden' }}>
+            <Animated.View 
+              style={{
+                height: '100%',
+                backgroundColor: '#1b83de',
+                width: loadingProgress.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: ['0%', '100%']
+                })
+              }} 
+            />
+          </View>
+        </View>
       </View>
     );
   }

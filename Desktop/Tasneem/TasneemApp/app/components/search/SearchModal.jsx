@@ -7,6 +7,8 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
+import { Platform } from 'react-native';
 import { useFonts } from 'expo-font';
 import { useNavigationContext } from '../NavigationContext';
 import ThemedView from '../ThemedView';
@@ -49,6 +51,7 @@ const SearchModal = ({ visible, onClose }) => {
   const isDarkMode = typeof colorScheme === 'string' && colorScheme.toLowerCase() === 'dark';
   const theme = isDarkMode ? Colors.dark : Colors.light;
   const inputRef = useRef(null);
+  const isAndroid = Platform.OS === 'android';
 
   // Load Uthmanic font
   const [fontsLoaded] = useFonts({
@@ -81,14 +84,49 @@ const SearchModal = ({ visible, onClose }) => {
   const SEARCH_COUNT_KEY = '@search:daily_count';
   const SEARCH_TIMESTAMP_KEY = '@search:first_search_timestamp';
 
+  const storageGet = async (key) => {
+    try {
+      if (Platform.OS !== 'web') {
+        const val = await SecureStore.getItemAsync(key);
+        if (val) return val;
+      }
+    } catch (e) { }
+    try {
+      return await AsyncStorage.getItem(key);
+    } catch (e) { }
+    return null;
+  };
+
+  const storageSet = async (key, val) => {
+    try {
+      if (Platform.OS !== 'web') {
+        await SecureStore.setItemAsync(key, val);
+      }
+    } catch (e) { }
+    try {
+      await AsyncStorage.setItem(key, val);
+    } catch (e) { }
+  };
+
+  const storageRemove = async (key) => {
+    try {
+      if (Platform.OS !== 'web') {
+        await SecureStore.deleteItemAsync(key);
+      }
+    } catch (e) { }
+    try {
+      await AsyncStorage.removeItem(key);
+    } catch (e) { }
+  };
+
   const getSearchCount = useCallback(async () => {
     try {
-      const firstSearchTimestamp = await AsyncStorage.getItem(SEARCH_TIMESTAMP_KEY);
+      const firstSearchTimestamp = await storageGet(SEARCH_TIMESTAMP_KEY);
       const now = Date.now();
       const HOURS_24 = 24 * 60 * 60 * 1000;
 
       if (!firstSearchTimestamp) {
-        // No previous searches
+        console.log('[SearchModal] No previous searches found. Count is 0.');
         setAvailableTime(null);
         return 0;
       }
@@ -97,19 +135,20 @@ const SearchModal = ({ visible, onClose }) => {
 
       // Check if 24 hours have passed since first search
       if (now - firstSearchTime > HOURS_24) {
-        // 24 hours passed, reset count and timestamp
-        await AsyncStorage.setItem(SEARCH_COUNT_KEY, '0');
-        await AsyncStorage.removeItem(SEARCH_TIMESTAMP_KEY);
+        console.log('[SearchModal] 24 hours passed since first search. Resetting search count.');
+        await storageSet(SEARCH_COUNT_KEY, '0');
+        await storageRemove(SEARCH_TIMESTAMP_KEY);
         setAvailableTime(null);
         return 0;
       }
 
-      // Calculate when searches will be available again
       const availableAt = firstSearchTime + HOURS_24;
       setAvailableTime(availableAt);
 
-      const count = await AsyncStorage.getItem(SEARCH_COUNT_KEY);
-      return count ? parseInt(count, 10) : 0;
+      const count = await storageGet(SEARCH_COUNT_KEY);
+      const parsedCount = count ? parseInt(count, 10) : 0;
+      console.log(`[SearchModal] Current search count: ${parsedCount}. Available at: ${new Date(availableAt).toLocaleString()}`);
+      return parsedCount;
     } catch (e) {
       console.error('Failed to get search count:', e);
       return 0;
@@ -139,10 +178,10 @@ const SearchModal = ({ visible, onClose }) => {
 
       // Set timestamp if this is the first search of the period
       if (count === 0) {
-        await AsyncStorage.setItem(SEARCH_TIMESTAMP_KEY, String(Date.now()));
+        await storageSet(SEARCH_TIMESTAMP_KEY, String(Date.now()));
       }
 
-      await AsyncStorage.setItem(SEARCH_COUNT_KEY, String(newCount));
+      await storageSet(SEARCH_COUNT_KEY, String(newCount));
       return newCount;
     } catch (e) {
       console.error('Failed to increment search count:', e);
@@ -152,6 +191,7 @@ const SearchModal = ({ visible, onClose }) => {
 
   const canSearch = useCallback(async () => {
     if (isPremium) return { canSearch: true, remaining: Infinity };
+    if (Platform.OS === 'android') return { canSearch: true, remaining: Infinity };
 
     const count = await getSearchCount();
     const remaining = DAILY_SEARCH_LIMIT - count;
@@ -243,19 +283,44 @@ const SearchModal = ({ visible, onClose }) => {
         return;
       }
 
-      // Get current count
-      const currentCount = await getSearchCount();
+      const parsed = parseQuery(query, searchSource);
 
-      // Calculate remaining
-      const remaining = isPremium ? Infinity : Math.max(0, DAILY_SEARCH_LIMIT - currentCount);
+      let isPremiumLockedAndroid = false;
+      if (isAndroid && searchSource === 'quran') {
+        if (parsed.mode === 'reference' || parsed.mode === 'text') {
+          isPremiumLockedAndroid = true;
+        }
+      }
+
+      let limitReached = false;
+      let remaining = Infinity;
+
+      if (!isPremium) {
+        if (isAndroid) {
+          if (isPremiumLockedAndroid) {
+            limitReached = true;
+            remaining = 0;
+          } else {
+            limitReached = false;
+            remaining = Infinity;
+          }
+        } else {
+          const currentCount = await getSearchCount();
+          remaining = Math.max(0, DAILY_SEARCH_LIMIT - currentCount);
+          limitReached = currentCount >= DAILY_SEARCH_LIMIT;
+        }
+      }
+
       setRemainingSearches(remaining);
-
-      // Set limit reached status based on current count
-      const limitReached = !isPremium && currentCount >= DAILY_SEARCH_LIMIT;
       setSearchLimitReached(limitReached);
 
+      if (isPremiumLockedAndroid && !isPremium) {
+        setResults([]);
+        setIsSearching(false);
+        return;
+      }
+
       setIsSearching(true);
-      const parsed = parseQuery(query, searchSource);
 
       let searchResults = [];
       if (searchSource === 'quran') {
@@ -334,12 +399,14 @@ const SearchModal = ({ visible, onClose }) => {
 
     // Free user under limit
     if (!isPremium) {
-      await incrementSearchCount();
+      if (Platform.OS !== 'android') {
+        await incrementSearchCount();
 
-      // Update local state proactively so UI updates on next search
-      const newCount = (await getSearchCount()); // it's already incremented, so this gets the latest
-      setRemainingSearches(Math.max(0, DAILY_SEARCH_LIMIT - newCount));
-      setSearchLimitReached(newCount >= DAILY_SEARCH_LIMIT);
+        // Update local state proactively so UI updates on next search
+        const newCount = (await getSearchCount()); // it's already incremented, so this gets the latest
+        setRemainingSearches(Math.max(0, DAILY_SEARCH_LIMIT - newCount));
+        setSearchLimitReached(newCount >= DAILY_SEARCH_LIMIT);
+      }
     }
 
     if (result.matchType === 'surah' || result.surah) {
@@ -375,11 +442,13 @@ const SearchModal = ({ visible, onClose }) => {
 
     // Free user under limit
     if (!isPremium) {
-      await incrementSearchCount();
+      if (Platform.OS !== 'android') {
+        await incrementSearchCount();
 
-      const newCount = (await getSearchCount());
-      setRemainingSearches(Math.max(0, DAILY_SEARCH_LIMIT - newCount));
-      setSearchLimitReached(newCount >= DAILY_SEARCH_LIMIT);
+        const newCount = (await getSearchCount());
+        setRemainingSearches(Math.max(0, DAILY_SEARCH_LIMIT - newCount));
+        setSearchLimitReached(newCount >= DAILY_SEARCH_LIMIT);
+      }
     }
 
     if (result.matchType === 'book') {
@@ -670,18 +739,18 @@ const SearchModal = ({ visible, onClose }) => {
                     // Limit exceeded - show warning with countdown
                     <>
                       <Text style={[styles.warningText, { color: isDarkMode ? '#60a5fa' : '#1e40af' }]}>
-                        {t('search.limitReached') || "You have used all your free result views today."}
+                        {Platform.OS === 'android' ? (t('search.androidPremiumLocked') || "Quran Reference Searching is a Premium Feature.") : (t('search.limitReached') || "You have used all your free result views today.")}
                       </Text>
                       <Text style={[styles.warningSubtext, { color: isDarkMode ? '#93c5fd' : '#1e3a8a' }]}>
                         {t('search.upgradeForUnlimited') || 'Upgrade to Premium for unlimited views'}
-                        {availableTime && ` • ${t('search.availableIn') || 'Available in'} ${formatAvailableTime(availableTime)}`}
+                        {(!isAndroid && availableTime) && ` • ${t('search.availableIn') || 'Available in'} ${formatAvailableTime(availableTime)}`}
                       </Text>
                     </>
                   ) : (
                     // Within limit - show info
                     <>
                       <Text style={[styles.warningText, { color: isDarkMode ? '#60a5fa' : '#1e40af' }]}>
-                        {`${remainingSearches} free ${remainingSearches === 1 ? 'view' : 'views'} remaining today`}
+                        {Platform.OS === 'android' ? (t('search.androidFree') || "Unlimited Free Searches") : `${remainingSearches} free ${remainingSearches === 1 ? 'view' : 'views'} remaining today`}
                       </Text>
                       <Text style={[styles.warningSubtext, { color: isDarkMode ? '#93c5fd' : '#1e3a8a' }]}>
                         {t('search.upgradeForUnlimited') || 'Upgrade to Premium for unlimited views'}
