@@ -623,6 +623,7 @@ const Header = ({
   const handleCloseBookmarkModal = useCallback(() => {
     Keyboard.dismiss();
     setBookmarkModal(false);
+    setExpandedBookmarks(new Set());
   }, []);
 
   const groupedBookmarks = useMemo(() => groupBookmarks(bookmarkItems), [bookmarkItems]);
@@ -647,13 +648,6 @@ const Header = ({
   useEffect(() => {
     if (bookmarkModal) {
       loadBookmarks();
-      AsyncStorage.getItem('@tasneem:expanded_bookmarks').then(val => {
-        if (val) {
-          try {
-             setExpandedBookmarks(new Set(JSON.parse(val)));
-          } catch(e) {}
-        }
-      });
       AsyncStorage.getItem('@quran:selectedTranslation').then(val => {
          if (val && val !== 'none') {
            setQuranCurrentTranslationLang(val);
@@ -1181,7 +1175,6 @@ const Header = ({
                     const next = new Set(prev);
                     if (next.has(item.id)) next.delete(item.id);
                     else next.add(item.id);
-                    AsyncStorage.setItem('@tasneem:expanded_bookmarks', JSON.stringify([...next]));
                     return next;
                   });
                 }}
