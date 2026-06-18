@@ -45,6 +45,7 @@ import SearchModal from './search/SearchModal';
 import RemindersModal from './Remindersmodal';
 import { getActiveReminderIds, getTodayKey, loadCompletedReminderIds } from '../utils/remindersUtils';
 import useSunnahIndex from '../hooks/useSunnahIndex';
+import { quranArabicMap } from '../constants/quranArabicMap';
 import { quranTranslationMap } from '../constants/quranTranslationMap';
 import { readOfflineSunnahEdition } from '../utils/offlineContent';
 import { useFonts } from 'expo-font';
