@@ -46,6 +46,7 @@ import RemindersModal from './Remindersmodal';
 import { getActiveReminderIds, getTodayKey, loadCompletedReminderIds } from '../utils/remindersUtils';
 import useSunnahIndex from '../hooks/useSunnahIndex';
 import { quranArabicMap } from '../constants/quranArabicMap';
+import { quranTranslationMap } from '../constants/quranTranslationMap';
 import { useFonts } from 'expo-font';
 
 const MODERATE_FACTOR = 0.35;
@@ -398,6 +399,7 @@ const Header = ({
   const [weakSurahsList, setWeakSurahsList] = useState([]);
   // premiumPaywallVisible now managed by usePremium() hook
   const [shopifyModalVisible, setShopifyModalVisible] = useState(false);
+  const [quranCurrentTranslationLang, setQuranCurrentTranslationLang] = useState(null);
   const [remindersModal, setRemindersModal] = useState(false);
   const [preferencesModalVisible, setPreferencesModalVisible] = useState(false);
   const [pendingRemindersCount, setPendingRemindersCount] = useState(0);
@@ -607,6 +609,11 @@ const Header = ({
           } catch(e) {}
         }
       });
+      AsyncStorage.getItem('@quran:selectedTranslation').then(val => {
+         if (val && val !== 'none') {
+           setQuranCurrentTranslationLang(val);
+         }
+      }).catch(()=>{});
     }
   }, [bookmarkModal, loadBookmarks]);
 
@@ -1030,13 +1037,24 @@ const Header = ({
     setBookmarkModal(false);
   };
 
+  const getDynamicQuranTranslation = (surahId, ayahId) => {
+    const langToUse = quranCurrentTranslationLang || language;
+    if (!langToUse || langToUse === 'none' || langToUse === 'arabic' || langToUse === 'ar') return null;
+    const tMap = quranTranslationMap[langToUse];
+    if (!tMap || !tMap.quran) return null;
+    const verse = tMap.quran.find(v => v.chapter === Number(surahId) && v.verse === Number(ayahId));
+    return verse ? verse.text : null;
+  };
+
   const renderBookmarkItem = ({ item }) => {
     const isQuran = item.source === BOOKMARK_TABS.QURAN;
     const title = isQuran
-      ? `${item.quran?.surahName || t('tabs.quran')} ${item.quran?.surahId}: ${item.quran?.ayahId}`
+      ? `${item.quran?.surahName || t('tabs.quran')} \u200E${item.quran?.surahId}:${item.quran?.ayahId}\u200E`
       : `${item.sunnah?.bookDisplayName || t('tabs.sunnah')} #${item.sunnah?.hadithNumber || ''}`;
+      
+    const dynamicQuranTranslation = isQuran ? getDynamicQuranTranslation(item.quran?.surahId, item.quran?.ayahId) : null;
     const subtitle = isQuran
-      ? item.quran?.translation || ''
+      ? dynamicQuranTranslation || item.quran?.translation || ''
       : item.sunnah?.translation || '';
 
     const isExpanded = expandedBookmarks.has(item.id);
