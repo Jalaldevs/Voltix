@@ -505,7 +505,6 @@ function TafseerContentSheet({
                 style={{
                   backgroundColor: isDarkMode ? 'rgba(96,165,250,0.15)' : 'rgba(25,118,210,0.1)',
                   borderRadius: ms(20),
-                  padding: ms(4),
                   marginRight: ms(4),
                   width: ms(32),
                   height: ms(32),

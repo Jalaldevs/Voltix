@@ -15,6 +15,7 @@ import {
   ScrollView,
   Linking,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons, FontAwesome5, Feather } from '@expo/vector-icons';
@@ -599,6 +600,13 @@ const Header = ({
   useEffect(() => {
     if (bookmarkModal) {
       loadBookmarks();
+      AsyncStorage.getItem('@tasneem:expanded_bookmarks').then(val => {
+        if (val) {
+          try {
+             setExpandedBookmarks(new Set(JSON.parse(val)));
+          } catch(e) {}
+        }
+      });
     }
   }, [bookmarkModal, loadBookmarks]);
 
@@ -1103,10 +1111,8 @@ const Header = ({
                   setExpandedBookmarks(prev => {
                     const next = new Set(prev);
                     if (next.has(item.id)) next.delete(item.id);
-                    else {
-                      next.clear();
-                      next.add(item.id);
-                    }
+                    else next.add(item.id);
+                    AsyncStorage.setItem('@tasneem:expanded_bookmarks', JSON.stringify([...next]));
                     return next;
                   });
                 }}
@@ -1120,11 +1126,18 @@ const Header = ({
             </View>
           </View>
 
-          {isExpanded && !!arabicText && fontsLoaded && (
+          {isExpanded && fontsLoaded && (!!arabicText || !!subtitle) && (
             <View style={{ marginTop: ms(12), paddingTop: ms(12), borderTopWidth: 1, borderTopColor: theme.border + '20' }}>
-              <Text style={{ color: theme.text, fontSize: scaleFontSize(20), lineHeight: scaleFontSize(34), fontFamily: arabicFontFamily, writingDirection: 'rtl', textAlign: 'right' }}>
-                {arabicText}
-              </Text>
+              {!!arabicText && (
+                <Text style={{ color: theme.text, fontSize: scaleFontSize(20), lineHeight: scaleFontSize(34), fontFamily: arabicFontFamily, writingDirection: 'rtl', textAlign: 'right' }}>
+                  {arabicText}
+                </Text>
+              )}
+              {!!subtitle && (
+                <Text style={{ color: theme.text, fontSize: scaleFontSize(14), lineHeight: scaleFontSize(22), marginTop: !!arabicText ? ms(12) : 0, textAlign: 'left' }}>
+                  {subtitle}
+                </Text>
+              )}
             </View>
           )}
         </View>
