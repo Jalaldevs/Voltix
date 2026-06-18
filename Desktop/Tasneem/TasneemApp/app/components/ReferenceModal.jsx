@@ -422,11 +422,15 @@ function TafseerContentSheet({
 
   const [addingPosition, setAddingPosition] = React.useState(null); // 'top', 'bottom', or null
   const [collapsedTafseers, setCollapsedTafseers] = React.useState(new Set());
+  const [isManaging, setIsManaging] = React.useState(false);
   const flatListRef = React.useRef(null);
 
-  // Reset adding state if sheet closes, or force it if no tafseers
+  // Reset states if sheet closes
   React.useEffect(() => {
-    if (!visible) setAddingPosition(null);
+    if (!visible) {
+      setAddingPosition(null);
+      setIsManaging(false);
+    }
     else if (tafseerContents.length === 0 && !tafseerLoading) setAddingPosition('top');
   }, [visible, tafseerContents.length, tafseerLoading]);
 
@@ -471,6 +475,20 @@ function TafseerContentSheet({
             )}
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: ms(8) }}>
+            {tafseerContents.length > 0 && (
+              <TouchableOpacity
+                onPress={() => setIsManaging(true)}
+                hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                style={{
+                  backgroundColor: isDarkMode ? 'rgba(148,163,184,0.15)' : 'rgba(100,116,139,0.1)',
+                  borderRadius: ms(20),
+                  padding: ms(4),
+                }}
+              >
+                <Ionicons name="layers-outline" size={ms(22)} color={mutedColor} />
+              </TouchableOpacity>
+            )}
+            
             {availableTafseers.length > 0 && (
               <TouchableOpacity
                 onPress={() => {
@@ -675,6 +693,31 @@ function TafseerContentSheet({
             <Ionicons name="chevron-forward" size={ms(22)} color={!hasNext ? mutedColor : accentColor} />
           </TouchableOpacity>
         </View>
+
+        {/* Manager Overlay */}
+        {isManaging && (
+          <View style={[StyleSheet.absoluteFill, { backgroundColor: isDarkMode ? 'rgba(15,23,42,0.85)' : 'rgba(248,250,255,0.9)', justifyContent: 'center', padding: ms(20) }]}>
+            <View style={{ backgroundColor: sheetBg, borderRadius: ms(16), padding: ms(16), borderWidth: 1, borderColor: cardBorder, elevation: 5, shadowOpacity: 0.1, shadowRadius: 10 }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: ms(16) }}>
+                <Text style={{ color: textColor, fontWeight: '700', fontSize: scaleFontSize(16) }}>Manage Active Tafseers</Text>
+                <TouchableOpacity onPress={() => setIsManaging(false)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+                  <Ionicons name="close-outline" size={ms(24)} color={mutedColor} />
+                </TouchableOpacity>
+              </View>
+              {tafseerContents.map(tf => (
+                <View key={tf.key} style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: ms(12), borderBottomWidth: 1, borderBottomColor: isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)' }}>
+                  <Text style={{ color: textColor, fontSize: scaleFontSize(14), flex: 1, paddingRight: ms(10) }}>{tf.label}</Text>
+                  <TouchableOpacity onPress={() => onRemoveTafseer(tf.key)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+                    <Ionicons name="trash-outline" size={ms(20)} color="#ef4444" />
+                  </TouchableOpacity>
+                </View>
+              ))}
+              {tafseerContents.length === 0 && (
+                <Text style={{ color: mutedColor, textAlign: 'center', paddingVertical: ms(12) }}>No active tafseers.</Text>
+              )}
+            </View>
+          </View>
+        )}
       </View>
     </View>
   );
