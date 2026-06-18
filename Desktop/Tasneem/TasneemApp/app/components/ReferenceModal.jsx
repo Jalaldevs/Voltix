@@ -421,6 +421,7 @@ function TafseerContentSheet({
   const labelColor = isDarkMode ? '#60a5fa' : '#1976d2';
 
   const [addingPosition, setAddingPosition] = React.useState(null); // 'top', 'bottom', or null
+  const [collapsedTafseers, setCollapsedTafseers] = React.useState(new Set());
   const flatListRef = React.useRef(null);
 
   // Reset adding state if sheet closes, or force it if no tafseers
@@ -473,6 +474,7 @@ function TafseerContentSheet({
             {availableTafseers.length > 0 && (
               <TouchableOpacity
                 onPress={() => {
+                  setCollapsedTafseers(new Set(tafseerContents.map(tf => tf.key)));
                   setAddingPosition('top');
                   setTimeout(() => {
                     flatListRef.current?.scrollToOffset({ offset: 0, animated: true });
@@ -511,12 +513,16 @@ function TafseerContentSheet({
               }
 
               tafseerContents.forEach((tf) => {
-                items.push({ type: 'header', key: `header-${tf.key}`, tfKey: tf.key, label: tf.label });
-                const paragraphs = tf.text.split(/\n+/).filter(p => p.trim());
-                paragraphs.forEach((p, idx) => {
-                  items.push({ type: 'paragraph', key: `para-${tf.key}-${idx}`, text: p });
-                });
-                items.push({ type: 'footer', key: `footer-${tf.key}` }); // For padding/border bottom
+                const isCollapsed = collapsedTafseers.has(tf.key);
+                items.push({ type: 'header', key: `header-${tf.key}`, tfKey: tf.key, label: tf.label, isCollapsed });
+                
+                if (!isCollapsed) {
+                  const paragraphs = tf.text.split(/\n+/).filter(p => p.trim());
+                  paragraphs.forEach((p, idx) => {
+                    items.push({ type: 'paragraph', key: `para-${tf.key}-${idx}`, text: p });
+                  });
+                  items.push({ type: 'footer', key: `footer-${tf.key}` }); // For padding/border bottom
+                }
               });
               
               if (addingPosition === 'bottom') {
@@ -536,16 +542,34 @@ function TafseerContentSheet({
               if (item.type === 'header') {
                 return (
                   <View style={{
-                    backgroundColor: cardBg, borderColor: cardBorder, borderWidth: 1, borderBottomWidth: 0,
-                    borderTopLeftRadius: ms(14), borderTopRightRadius: ms(14), padding: ms(14), paddingBottom: ms(4)
+                    backgroundColor: cardBg, borderColor: cardBorder, borderWidth: 1, borderBottomWidth: item.isCollapsed ? 1 : 0,
+                    borderTopLeftRadius: ms(14), borderTopRightRadius: ms(14),
+                    borderBottomLeftRadius: item.isCollapsed ? ms(14) : 0, borderBottomRightRadius: item.isCollapsed ? ms(14) : 0,
+                    padding: ms(14), paddingBottom: item.isCollapsed ? ms(14) : ms(4),
+                    marginBottom: item.isCollapsed ? ms(12) : 0
                   }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                       <Text style={{ color: labelColor, fontWeight: '700', fontSize: scaleFontSize(12.5), letterSpacing: 0.3, flex: 1, paddingRight: ms(8) }}>
                         {item.label}
                       </Text>
-                      <TouchableOpacity onPress={() => onRemoveTafseer(item.tfKey)} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
-                        <Ionicons name="close-circle-outline" size={ms(20)} color={mutedColor} />
-                      </TouchableOpacity>
+                      <View style={{ flexDirection: 'row', alignItems: 'center', gap: ms(16) }}>
+                        <TouchableOpacity
+                          onPress={() => {
+                            setCollapsedTafseers(prev => {
+                              const next = new Set(prev);
+                              if (next.has(item.tfKey)) next.delete(item.tfKey);
+                              else next.add(item.tfKey);
+                              return next;
+                            });
+                          }}
+                          hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+                        >
+                          <Ionicons name={item.isCollapsed ? "chevron-down" : "chevron-up"} size={ms(20)} color={mutedColor} />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => onRemoveTafseer(item.tfKey)} hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}>
+                          <Ionicons name="close-circle-outline" size={ms(20)} color={mutedColor} />
+                        </TouchableOpacity>
+                      </View>
                     </View>
                   </View>
                 );
@@ -611,6 +635,7 @@ function TafseerContentSheet({
                               const proceed = () => {
                                 onAddTafseer(tf.key);
                                 setAddingPosition(null);
+                                setCollapsedTafseers(new Set()); // Unwrap everything when added
                               };
                               if (!isFree && !isPremium) requirePremium(proceed);
                               else proceed();
