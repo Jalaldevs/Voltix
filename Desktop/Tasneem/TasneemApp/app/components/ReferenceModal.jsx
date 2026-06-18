@@ -353,16 +353,9 @@ function TafseerPickerSheet({ visible, onClose, onOpenSearch, onSelect, isDarkMo
           <Text style={{ fontSize: scaleFontSize(18), fontWeight: '700', color: textColor }}>
             Tafaseer Collection
           </Text>
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: ms(8) }}>
-            {onOpenSearch && (
-              <TouchableOpacity onPress={onOpenSearch} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
-                <Ionicons name="search-outline" size={ms(26)} color={textColor} />
-              </TouchableOpacity>
-            )}
-            <TouchableOpacity onPress={onClose} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
-              <Ionicons name="close-outline" size={ms(28)} color={textColor} />
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity onPress={onClose} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+            <Ionicons name="close-outline" size={ms(28)} color={textColor} />
+          </TouchableOpacity>
         </View>
         <FlatList
           data={sortedTafseerList}
@@ -415,7 +408,7 @@ function TafseerPickerSheet({ visible, onClose, onOpenSearch, onSelect, isDarkMo
 // ─── Tafseer content sheet (View overlay — safe inside Modal) ─────────────────
 // Comparative reader: stacked cards, one per selected tafseer edition.
 function TafseerContentSheet({
-  visible, onClose, onOpenSearch, onAddTafseer, onRemoveTafseer,
+  visible, onClose, onAddTafseer, onRemoveTafseer,
   tafseerContents, tafseerLoading,
   surahName, ayahId,
   onPrev, onNext, hasPrev, hasNext,
@@ -475,11 +468,6 @@ function TafseerContentSheet({
             )}
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: ms(8) }}>
-            {onOpenSearch && (
-              <TouchableOpacity onPress={onOpenSearch} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
-                <Ionicons name="search-outline" size={ms(26)} color={textColor} />
-              </TouchableOpacity>
-            )}
             <TouchableOpacity onPress={onClose} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
               <Ionicons name="close-outline" size={ms(30)} color={textColor} />
             </TouchableOpacity>
@@ -1144,9 +1132,14 @@ const ReferenceModal = ({
             <Ionicons name={iconName} size={ms(15)} color={accentColor} style={{ marginRight: ms(6) }} />
             <Text style={[styles.headerTitle, { color: textColor }]} numberOfLines={1}>{referenceText}</Text>
           </View>
-          <TouchableOpacity onPress={onBookmark} style={styles.headerBtn} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
-            <Ionicons name={isBookmarked ? 'bookmark' : 'bookmark-outline'} size={ms(23)} color={accentColor} />
-          </TouchableOpacity>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <TouchableOpacity onPress={() => setSearchModalVisible(true)} style={styles.headerBtn} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+              <Ionicons name="search-outline" size={ms(24)} color={accentColor} style={{ marginRight: ms(8) }} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={onBookmark} style={styles.headerBtn} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+              <Ionicons name={isBookmarked ? 'bookmark' : 'bookmark-outline'} size={ms(23)} color={accentColor} />
+            </TouchableOpacity>
+          </View>
         </View>
 
         {/* Content */}
@@ -1251,7 +1244,6 @@ const ReferenceModal = ({
           <TafseerPickerSheet
             visible={tafseerPickerVisible}
             onClose={() => setTafseerPickerVisible(false)}
-            onOpenSearch={() => setSearchModalVisible(true)}
             onSelect={(newKey) => {
               setTafseerPickerVisible(false);
               if (!selectedTafseerKeys.includes(newKey)) {
@@ -1283,7 +1275,6 @@ const ReferenceModal = ({
           <TafseerContentSheet
             visible={tafseerContentVisible}
             onClose={() => setTafseerContentVisible(false)}
-            onOpenSearch={() => setSearchModalVisible(true)}
             onAddTafseer={(newKey) => {
               if (!selectedTafseerKeys.includes(newKey)) {
                 const newKeys = [...selectedTafseerKeys, newKey];
