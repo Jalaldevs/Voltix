@@ -480,16 +480,12 @@ function TafseerContentSheet({
                 onPress={() => setIsManaging(true)}
                 hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
                 style={{
-                  backgroundColor: isDarkMode ? 'rgba(96,165,250,0.15)' : 'rgba(25,118,210,0.1)',
-                  borderRadius: ms(20),
-                  padding: ms(6),
-                  width: ms(32),
-                  height: ms(32),
-                  alignItems: 'center',
+                  padding: ms(4),
                   justifyContent: 'center',
+                  alignItems: 'center',
                 }}
               >
-                <Ionicons name="layers-outline" size={ms(18)} color={accentColor} />
+                <Ionicons name="layers-outline" size={ms(26)} color={accentColor} />
               </TouchableOpacity>
             )}
             
