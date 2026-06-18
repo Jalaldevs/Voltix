@@ -478,6 +478,8 @@ function TafseerContentSheet({
         <ScrollView
           contentContainerStyle={{ padding: ms(14), paddingBottom: ms(24) }}
           showsVerticalScrollIndicator={false}
+          removeClippedSubviews={Platform.OS === 'android'} // Helps with Android memory/lag
+          scrollEventThrottle={16}
         >
           {tafseerLoading ? (
             <View style={{ minHeight: ms(200), justifyContent: 'center', alignItems: 'center' }}>
@@ -506,9 +508,16 @@ function TafseerContentSheet({
                       <Ionicons name="close-circle-outline" size={ms(20)} color={mutedColor} />
                     </TouchableOpacity>
                   </View>
-                  <Text style={{ fontSize: scaleFontSize(15.5), lineHeight: scaleFontSize(26), color: textColor }}>
-                    {text}
-                  </Text>
+                  <View style={{ marginTop: ms(4) }}>
+                    {text.split(/\n+/).map((paragraph, idx) => {
+                      if (!paragraph.trim()) return null;
+                      return (
+                        <Text key={idx} style={{ fontSize: scaleFontSize(15.5), lineHeight: scaleFontSize(26), color: textColor, marginBottom: ms(10), textAlign: 'justify' }}>
+                          {paragraph}
+                        </Text>
+                      );
+                    })}
+                  </View>
                 </View>
               ))}
               
